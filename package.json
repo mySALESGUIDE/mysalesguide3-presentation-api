@@ -1,0 +1,22 @@
+{
+  "name": "mysalesguide3-presentation-api",
+  "version": "1.0.0",
+  "description": "This is the official repository for the `mySALESGUIDE3` presentation API. It provides an JavaScript-API to access functionalities and/or data of the `mySALESGUIDE3` app. This API only works inside of a `mySALESGUIDE3` presentation.",
+  "main": "src/api.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mySALESGUIDE/mysalesguide3-presentation-api.git"
+  },
+  "author": "mySALESGUIDE GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mySALESGUIDE/mysalesguide3-presentation-api/issues"
+  },
+  "homepage": "https://github.com/mySALESGUIDE/mysalesguide3-presentation-api#readme"
+}
