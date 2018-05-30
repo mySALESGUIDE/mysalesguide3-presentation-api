@@ -22,7 +22,7 @@
     var API_METHOD_GET_CUSTOM_DATA = 'getCustomData';
     var API_METHOD_LIST_CUSTOM_DATA = 'listCustomData';
 
-    API.version = '1.0.0';
+    API.version = '1.1.0';
     API.CRM_TYPE_CONTACTS = 'crm_contacts';
     API.CRM_TYPE_COMPANIES = 'crm_company';
 
@@ -329,13 +329,15 @@
      * @param {String} file_url
      * @param {String} display_name
      * @param {String} content_type
+     * @param {Object} pdf_settings
      */
-    API.saveCrmFile = function (success_callback, error_callback, crm_id, file_url, display_name, content_type) {
+    API.saveCrmFile = function (success_callback, error_callback, crm_id, file_url, display_name, content_type, pdf_settings) {
         _invoke(API_METHOD_SAVE_CRM_FILE, {
             crm_id: crm_id,
             file_url: file_url,
             display_name: display_name,
-            content_type: content_type
+            content_type: content_type,
+            pdf_settings: pdf_settings
         }, success_callback, error_callback);
     };
 
