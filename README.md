@@ -43,7 +43,7 @@ const api = new mySALESGUIDE(window,{
     defaultLimit: 100 // 100 items per default
 });
 
-api.isAvailable().then((information) => {
+api.checkAvailable().then((information) => {
     api.selectCrmContact().then((crm) => {
         window.console.log(crm);
     }).catch((message, code) => {

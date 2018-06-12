@@ -1,5 +1,7 @@
 "use strict";
 
+const uuidv4 = require('uuid/v4');
+
 class mySALESGUIDE {
 
     /**
@@ -7,15 +9,7 @@ class mySALESGUIDE {
      * @param {Object} options
      */
     constructor(window, options = {}) {
-        this.ERROR_API_UNKNOWN = 10001;
-        this.ERROR_API_TIMEOUT = 10002;
-        this.ERROR_API_OFFLINE = 10003;
-
-        this.ORDER_ASC = 'asc';
-        this.ORDER_DESC = 'desc';
-
         this.online = true;
-        this.callbackId = 0;
         this.callbacks = [];
         this.window = window;
         this.options = {
@@ -32,7 +26,7 @@ class mySALESGUIDE {
         });
 
         this.information = {};
-        this.isAvailable().then(() => {
+        this.checkAvailable().then(() => {
             this.getInformation().then((information) => {
                 this.information = information;
                 if (typeof this.window.initPresentation === "function") {
@@ -95,7 +89,7 @@ class mySALESGUIDE {
      */
     _invoke(method, parameters = {}) {
         return new Promise((resolve, reject) => {
-            let callbackId = 'callback' + (this.callbackId++);
+            let callbackId = this.uuid('callback');
             this.callbacks[callbackId] = {
                 'success': resolve,
                 'error': reject,
@@ -135,7 +129,7 @@ class mySALESGUIDE {
     /**
      * @return {Promise}
      */
-    isAvailable() {
+    checkAvailable() {
         return new Promise((resolve, reject) => {
             if (!this.window.parent || this.window.parent === this.window) {
                 this.online = false;
@@ -143,7 +137,7 @@ class mySALESGUIDE {
                 reject('mySALESGUIDE 3 JS-API is not available.', this.ERROR_API_OFFLINE);
                 return;
             }
-            this._invoke('isAvailable', {})
+            this._invoke('checkAvailable', {})
                 .then(() => {
                     this.online = true;
                     resolve();
@@ -209,7 +203,7 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getInformation() {
-        return this._invoke('information', {});
+        return this._invoke('getInformation', {});
     }
 
     /**
@@ -971,6 +965,23 @@ class mySALESGUIDE {
         return this._invoke('saveAttachment', data);
     }
 
+    /**
+     * @param {String|null} prefix
+     * @returns {string}
+     */
+    uuid(prefix = null) {
+        return (!!prefix ? prefix + '_' : '') + uuidv4();
+    }
+
 }
+
+Object.defineProperties(mySALESGUIDE, {
+    'VERSION': {value: '2.0.0', writeable: false, configurable: false, enumerable: true},
+    'ERROR_API_UNKNOWN': {value: 10001, writeable: false, configurable: false, enumerable: true},
+    'ERROR_API_TIMEOUT': {value: 10002, writeable: false, configurable: false, enumerable: true},
+    'ERROR_API_OFFLINE': {value: 10003, writeable: false, configurable: false, enumerable: true},
+    'ORDER_ASC': {value: 'asc', writeable: false, configurable: false, enumerable: true},
+    'ORDER_DESC': {value: 'desc', writeable: false, configurable: false, enumerable: true},
+});
 
 export default mySALESGUIDE;
