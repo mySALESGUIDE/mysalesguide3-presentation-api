@@ -105,6 +105,7 @@ class mySALESGUIDE {
                 let message = parameters || {};
                 message.action = method;
                 message.callback_identifier = callbackId;
+                message = JSON.parse(JSON.stringify(message)); // check json data
                 this._sendMessage(message);
             } catch (e) {
                 this._onTimeout(callbackId, e.message, e.code);
