@@ -1,1 +1,0 @@
-document.getElementById('js-test').innerHTML = 'Das JavaScript wird ausgeführt. :)';
