@@ -1,6 +1,6 @@
 "use strict";
 
-const uuidv4 = require('uuid/v4');
+import * as uuidv4 from "uuid/v4";
 
 class mySALESGUIDE {
 
@@ -982,7 +982,7 @@ Object.defineProperties(mySALESGUIDE, {
     'ERROR_API_TIMEOUT': {value: 10002, writeable: false, configurable: false, enumerable: true},
     'ERROR_API_OFFLINE': {value: 10003, writeable: false, configurable: false, enumerable: true},
     'ORDER_ASC': {value: 'asc', writeable: false, configurable: false, enumerable: true},
-    'ORDER_DESC': {value: 'desc', writeable: false, configurable: false, enumerable: true},
+    'ORDER_DESC': {value: 'desc', writeable: false, configurable: false, enumerable: true}
 });
 
 export default mySALESGUIDE;
