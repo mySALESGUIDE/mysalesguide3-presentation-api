@@ -57,7 +57,7 @@ class mySALESGUIDE {
         if (!!event.data.callback_success) {
             this.callbacks[callbackId].success.apply(null, parameters);
         } else {
-            this.callbacks[callbackId].error.apply(null, parameters);
+            this.callbacks[callbackId].error.apply(null, ['mySALESGUIDE 3 API error', this.ERROR_API_UNKNOWN]);
         }
         delete this.callbacks[callbackId];
     }
@@ -68,13 +68,16 @@ class mySALESGUIDE {
      * @param {Number|null} code
      * @private
      */
-    _onTimeout(callbackId, message = 'Unknown Error.', code = 10001) {
+    _cancel(callbackId, message = 'Unknown Error.', code = 10001) {
         message = !!message ? message : 'Timeout.';
         code = !!code ? code : this.ERROR_API_TIMEOUT;
         if (!this.callbacks[callbackId]) {
             return;
         }
-        this.callbacks[callbackId].timeout = null;
+        if (this.callbacks[callbackId].timeout) {
+            clearTimeout(this.callbacks[callbackId].timeout);
+            this.callbacks[callbackId].timeout = null;
+        }
         this.callbacks[callbackId].error.apply(null, [message, code]);
         delete this.callbacks[callbackId];
     }
@@ -92,12 +95,12 @@ class mySALESGUIDE {
                 'success': resolve,
                 'error': reject,
                 'timeout': setTimeout(function () {
-                    this._onTimeout(callbackId, 'Timeout.', this.ERROR_API_TIMEOUT);
+                    this._cancel(callbackId, 'Timeout.', this.ERROR_API_TIMEOUT);
                 }.bind(this), this.options.defaultTimeout)
             };
             try {
                 if (!this.online) {
-                    this._onTimeout(callbackId, 'mySALESGUIDE 3 API is offline.', this.ERROR_API_OFFLINE);
+                    this._cancel(callbackId, 'mySALESGUIDE 3 API is offline.', this.ERROR_API_OFFLINE);
                     return;
                 }
                 let message = parameters || {};
@@ -106,7 +109,7 @@ class mySALESGUIDE {
                 message = JSON.parse(JSON.stringify(message)); // check json data
                 this._sendMessage(message);
             } catch (e) {
-                this._onTimeout(callbackId, e.message, e.code);
+                this._cancel(callbackId, e.message, e.code);
             }
         });
     }
@@ -343,9 +346,7 @@ class mySALESGUIDE {
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
-            },
-            success,
-            error
+            }
         );
     }
 
@@ -399,9 +400,7 @@ class mySALESGUIDE {
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
-            },
-            success,
-            error
+            }
         );
     }
 
@@ -582,7 +581,7 @@ class mySALESGUIDE {
     /**
      * @return {Promise}
      */
-    selectCrmContact(success = null, error = null) {
+    selectCrmContact() {
         return this._invoke('selectCrmContact', {});
     }
 
@@ -647,9 +646,7 @@ class mySALESGUIDE {
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
-            },
-            success,
-            error
+            }
         );
     }
 
@@ -695,9 +692,7 @@ class mySALESGUIDE {
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
-            },
-            success,
-            error
+            }
         );
     }
 
