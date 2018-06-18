@@ -85,10 +85,11 @@ class mySALESGUIDE {
     /**
      * @param {String} method
      * @param {Object} parameters
+     * @param {Number} timeout
      * @return {Promise}
      * @private
      */
-    _invoke(method, parameters = {}) {
+    _invoke(method, parameters = {}, timeout) {
         return new Promise((resolve, reject) => {
             let callbackId = this.uuid('callback');
             this.callbacks[callbackId] = {
@@ -96,7 +97,7 @@ class mySALESGUIDE {
                 'error': reject,
                 'timeout': setTimeout(function () {
                     this._cancel(callbackId, 'Timeout.', this.ERROR_API_TIMEOUT);
-                }.bind(this), this.options.defaultTimeout)
+                }.bind(this), !!timeout ? timeout : this.options.defaultTimeout)
             };
             try {
                 if (!this.online) {
@@ -139,7 +140,7 @@ class mySALESGUIDE {
                 reject('mySALESGUIDE 3 JS-API is not available.', this.ERROR_API_OFFLINE);
                 return;
             }
-            this._invoke('checkAvailable', {})
+            this._invoke('checkAvailable', {}, 5000)
                 .then(() => {
                     this.online = true;
                     resolve();
@@ -155,7 +156,13 @@ class mySALESGUIDE {
      * @param {Boolean} close_presentation
      * @return {Promise}
      */
-    openShortLink(url, close_presentation) {
+    openShortLink(url, close_presentation = false) {
+        if (typeof url !== "string") {
+            throw Error('Argument 1 passed to openShortLink must type of string.');
+        }
+        if (typeof close_presentation !== "boolean") {
+            throw Error('Argument 2 passed to openShortLink must type of boolean.');
+        }
         return this._invoke('openShortlink', {
             'url': url,
             'close_presentation': close_presentation
@@ -168,6 +175,12 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     openPopup(url, title) {
+        if (typeof url !== "string") {
+            throw Error('Argument 1 passed to openPopup must type of string.');
+        }
+        if (typeof title !== "string") {
+            throw Error('Argument 2 passed to openPopup must type of string.');
+        }
         return this._invoke('openShortlink', {
             'url': url,
             'title': title
@@ -180,6 +193,12 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     openBrowser(url, title) {
+        if (typeof url !== "string") {
+            throw Error('Argument 1 passed to openBrowser must type of string.');
+        }
+        if (typeof title !== "string") {
+            throw Error('Argument 2 passed to openBrowser must type of string.');
+        }
         return this._invoke('openBrowser', {'url': url, 'title': title});
     }
 
@@ -188,7 +207,13 @@ class mySALESGUIDE {
      * @param {Object} options
      * @return {Promise}
      */
-    openPdfViewer(attachment, options) {
+    openPdfViewer(attachment, options = {}) {
+        if (typeof attachment !== "string") {
+            throw Error('Argument 1 passed to openPdfViewer must type of string.');
+        }
+        if (typeof options !== "object") {
+            throw Error('Argument 2 passed to openPdfViewer must type of object.');
+        }
         if (attachment.indexOf('data:') === 0) {
             return this._invoke(
                 'openPdfViewer',
@@ -215,7 +240,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getUsers(filter, order, page, limit) {
+    getUsers(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getUsers must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getUsers must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getUsers must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getUsers must type of number.');
+        }
         return this._invoke(
             'getUsers',
             {
@@ -232,6 +269,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getUser(user_id) {
+        if (typeof user_id !== "string") {
+            throw Error('Argument 1 passed to getUser must type of string.');
+        }
         return this._invoke('getUser', {'id': user_id});
     }
 
@@ -247,6 +287,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getAccessToken(scopes) {
+        if (typeof scopes !== "object") {
+            throw Error('Argument 1 passed to getAccessToken must type of array.');
+        }
         return this._invoke('getAccessToken', {'scopes': scopes});
     }
 
@@ -257,7 +300,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getGroups(filter, order, page, limit) {
+    getGroups(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getGroups must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getGroups must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getGroups must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getGroups must type of number.');
+        }
         return this._invoke(
             'getGroups',
             {
@@ -274,6 +329,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getGroup(group_id) {
+        if (typeof group_id !== "string") {
+            throw Error('Argument 1 passed to getGroup must type of string.');
+        }
         return this._invoke('getGroup', {'id': group_id});
     }
 
@@ -284,7 +342,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getPermissions(filter, order, page, limit) {
+    getPermissions(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getPermissions must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getPermissions must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getPermissions must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getPermissions must type of number.');
+        }
         return this._invoke(
             'getPermissions',
             {
@@ -301,6 +371,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getPermission(permission_id) {
+        if (typeof permission_id !== "string") {
+            throw Error('Argument 1 passed to getPermission must type of string.');
+        }
         return this._invoke('getPermission', {'id': permission_id});
     }
 
@@ -311,7 +384,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getLanguages(filter, order, page, limit) {
+    getLanguages(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getLanguages must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getLanguages must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getLanguages must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getLanguages must type of number.');
+        }
         return this._invoke(
             'getLanguages',
             {
@@ -324,10 +409,13 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {String} permission_id
+     * @param {String} language_id
      * @return {Promise}
      */
-    getLanguage(permission_id) {
+    getLanguage(language_id) {
+        if (typeof language_id !== "string") {
+            throw Error('Argument 1 passed to getLanguage must type of string.');
+        }
         return this._invoke('getLanguage', {'id': language_id});
     }
 
@@ -338,7 +426,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCountries(filter, order, page, limit) {
+    getCountries(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCountries must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCountries must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCountries must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCountries must type of number.');
+        }
         return this._invoke(
             'getCountries',
             {
@@ -355,6 +455,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCountry(country_id) {
+        if (typeof country_id !== "string") {
+            throw Error('Argument 1 passed to getCountry must type of string.');
+        }
         return this._invoke('getCountry', {'id': country_id});
     }
 
@@ -365,7 +468,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmIndustries(filter, order, page, limit) {
+    getCrmIndustries(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmIndustries must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmIndustries must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmIndustries must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmIndustries must type of number.');
+        }
         return this._invoke(
             'getCrmIndustries',
             {
@@ -382,6 +497,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmIndustry(crm_Industry_id) {
+        if (typeof crm_Industry_id !== "string") {
+            throw Error('Argument 1 passed to getCrmIndustry must type of string.');
+        }
         return this._invoke('getCrmIndustry', {'id': crm_Industry_id});
     }
 
@@ -392,7 +510,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmPriorities(filter, order, page, limit) {
+    getCrmPriorities(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmPriorities must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmPriorities must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmPriorities must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmPriorities must type of number.');
+        }
         return this._invoke(
             'getCrmPriorities',
             {
@@ -409,6 +539,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmPriority(crm_priority_id) {
+        if (typeof crm_priority_id !== "string") {
+            throw Error('Argument 1 passed to getCrmPriority must type of string.');
+        }
         return this._invoke('getCrmPriority', {'id': crm_priority_id});
     }
 
@@ -419,7 +552,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmSources(filter, order, page, limit) {
+    getCrmSources(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmSources must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmSources must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmSources must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmSources must type of number.');
+        }
         return this._invoke(
             'getCrmSources',
             {
@@ -436,6 +581,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmSource(crm_source_id) {
+        if (typeof crm_source_id !== "string") {
+            throw Error('Argument 1 passed to getCrmSource must type of string.');
+        }
         return this._invoke('getCrmSource', {'id': crm_source_id});
     }
 
@@ -446,7 +594,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmCompanies(filter, order, page, limit) {
+    getCrmCompanies(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmCompanies must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmCompanies must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmCompanies must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmCompanies must type of number.');
+        }
         return this._invoke(
             'getCrmCompanies',
             {
@@ -463,6 +623,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmCompany(crm_company_id) {
+        if (typeof crm_company_id !== "string") {
+            throw Error('Argument 1 passed to getCrmCompany must type of string.');
+        }
         return this._invoke('getCrmCompany', {'id': crm_company_id});
     }
 
@@ -471,6 +634,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveCrmCompany(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCrmCompany must type of object.');
+        }
         return this._invoke('saveCrmCompany', data);
     }
 
@@ -482,6 +648,9 @@ class mySALESGUIDE {
         if (typeof crm_company_id === "object") {
             crm_company_id = crm_company_id._id;
         }
+        if (typeof crm_company_id !== "string") {
+            throw Error('Argument 1 passed to saveCrmCompany must type of string.');
+        }
         return this._invoke('deleteCrmCompany', {'id': crm_company_id});
     }
 
@@ -492,7 +661,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmCompanyNotes(filter, order, page, limit) {
+    getCrmCompanyNotes(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmCompanyNotes must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmCompanyNotes must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmCompanyNotes must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmCompanyNotes must type of number.');
+        }
         return this._invoke(
             'getCrmCompanyNotes',
             {
@@ -509,6 +690,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmCompanyNote(crm_company_note_id) {
+        if (typeof crm_company_note_id !== "string") {
+            throw Error('Argument 1 passed to getCrmCompanyNote must type of string.');
+        }
         return this._invoke('getCrmCompanyNote', {'id': crm_company_note_id});
     }
 
@@ -517,6 +701,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveCrmCompanyNote(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCrmCompanyNote must type of object.');
+        }
         return this._invoke('saveCrmCompanyNote', data);
     }
 
@@ -529,6 +716,9 @@ class mySALESGUIDE {
         if (typeof crm_company_note_id === "object") {
             crm_company_note_id = crm_company_note_id._id;
         }
+        if (typeof crm_company_note_id !== "string") {
+            throw Error('Argument 1 passed to deleteCrmCompanyNote must type of string.');
+        }
         return this._invoke('deleteCrmCompanyNote', {'id': crm_company_note_id});
     }
 
@@ -539,7 +729,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmCompanyFiles(filter, order, page, limit) {
+    getCrmCompanyFiles(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmCompanyFiles must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmCompanyFiles must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmCompanyFiles must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmCompanyFiles must type of number.');
+        }
         return this._invoke(
             'getCrmCompanyFiles',
             {
@@ -556,6 +758,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmCompanyFile(crm_company_file_id) {
+        if (typeof crm_company_file_id !== "string") {
+            throw Error('Argument 1 passed to getCrmCompanyFile must type of string.');
+        }
         return this._invoke('getCrmCompanyFile', {'id': crm_company_file_id});
     }
 
@@ -564,6 +769,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveCrmCompanyFile(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCrmCompanyFile must type of object.');
+        }
         return this._invoke('saveCrmCompanyFile', data);
     }
 
@@ -574,6 +782,9 @@ class mySALESGUIDE {
     deleteCrmCompanyFile(crm_company_file_id) {
         if (typeof crm_company_file_id === "object") {
             crm_company_file_id = crm_company_file_id._id;
+        }
+        if (typeof crm_company_file_id !== "string") {
+            throw Error('Argument 1 passed to deleteCrmCompanyFile must type of string.');
         }
         return this._invoke('deleteCrmCompanyFile', {'id': crm_company_file_id});
     }
@@ -592,7 +803,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmContacts(filter, order, page, limit) {
+    getCrmContacts(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmContacts must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmContacts must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmContacts must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmContacts must type of number.');
+        }
         return this._invoke(
             'getCrmContacts',
             {
@@ -609,6 +832,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmContact(crm_contact_id) {
+        if (typeof crm_contact_id !== "string") {
+            throw Error('Argument 1 passed to getCrmContact must type of string.');
+        }
         return this._invoke('getCrmContact', {'id': crm_contact_id});
     }
 
@@ -617,6 +843,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveCrmContact(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCrmContact must type of object.');
+        }
         return this._invoke('saveCrmContact', data);
     }
 
@@ -628,6 +857,9 @@ class mySALESGUIDE {
         if (typeof crm_contact_id === "object") {
             crm_contact_id = crm_contact_id._id;
         }
+        if (typeof crm_contact_id !== "string") {
+            throw Error('Argument 1 passed to deleteCrmContact must type of string.');
+        }
         return this._invoke('deleteCrmContact', {'id': crm_contact_id});
     }
 
@@ -638,7 +870,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmContactNotes(filter, order, page, limit) {
+    getCrmContactNotes(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmContactNotes must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmContactNotes must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmContactNotes must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmContactNotes must type of number.');
+        }
         return this._invoke(
             'getCrmContactNotes',
             {
@@ -655,6 +899,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmContactNote(crm_contact_note_id) {
+        if (typeof crm_contact_note_id !== "string") {
+            throw Error('Argument 1 passed to getCrmContactNote must type of string.');
+        }
         return this._invoke('getCrmContactNote', {'id': crm_contact_note_id});
     }
 
@@ -663,6 +910,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveCrmContactNote(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCrmContactNote must type of object.');
+        }
         return this._invoke('saveCrmContactNote', data);
     }
 
@@ -674,6 +924,9 @@ class mySALESGUIDE {
         if (typeof crm_contact_note_id === "object") {
             crm_contact_note_id = crm_contact_note_id._id;
         }
+        if (typeof crm_contact_note_id !== "string") {
+            throw Error('Argument 1 passed to deleteCrmContactNote must type of string.');
+        }
         return this._invoke('deleteCrmContactNote', {'id': crm_contact_note_id});
     }
 
@@ -684,7 +937,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCrmContactFiles(filter, order, page, limit) {
+    getCrmContactFiles(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCrmContactFiles must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCrmContactFiles must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCrmContactFiles must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCrmContactFiles must type of number.');
+        }
         return this._invoke(
             'getCrmContactFiles',
             {
@@ -701,6 +966,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCrmContactFile(crm_contact_file_id) {
+        if (typeof crm_contact_file_id !== "string") {
+            throw Error('Argument 1 passed to getCrmContactFile must type of string.');
+        }
         return this._invoke('getCrmContactFile', {'id': crm_contact_file_id});
     }
 
@@ -709,6 +977,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveCrmContactFile(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCrmContactFile must type of object.');
+        }
         return this._invoke('saveCrmContactFile', data);
     }
 
@@ -720,6 +991,9 @@ class mySALESGUIDE {
         if (typeof crm_contact_file_id === "object") {
             crm_contact_file_id = crm_contact_file_id._id;
         }
+        if (typeof crm_contact_file_id !== "string") {
+            throw Error('Argument 1 passed to deleteCrmContactFile must type of string.');
+        }
         return this._invoke('deleteCrmContactFile', {'id': crm_contact_file_id});
     }
 
@@ -730,9 +1004,21 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getCustomDataDocs(filter, order, page, limit) {
+    getCustomDataDocs(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getCustomDataDocs must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getCustomDataDocs must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getCustomDataDocs must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getCustomDataDocs must type of number.');
+        }
         return this._invoke(
-            'getCustomDataDocss',
+            'getCustomDataDocs',
             {
                 'filter': filter || this.options.defaultFilter,
                 'order': order || this.options.defaultOrder,
@@ -747,14 +1033,29 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getCustomDataDoc(custom_data_id) {
+        if (typeof custom_data_id !== "string") {
+            throw Error('Argument 1 passed to getCustomDataDoc must type of string.');
+        }
         return this._invoke('getCustomDataDoc', {'id': custom_data_id});
     }
 
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCustomData(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveCustomData must type of object.');
+        }
+        if (!data.client_id || !data.custom_type || !data.custom_key) {
+            throw Error('Could not build custom_data key');
+        }
+        let id = 'custom_data::' + data.client_id + '::' + data.custom_type;
+        if (!!data.user_id) {
+            id += '::' + data.user_id;
+        }
+        data.id = id + '::' + data.custom_key;
         return this._invoke('saveCustomData', data);
     }
 
@@ -766,6 +1067,9 @@ class mySALESGUIDE {
         if (typeof custom_data_id === "object") {
             custom_data_id = custom_data_id._id;
         }
+        if (typeof custom_data_id !== "string") {
+            throw Error('Argument 1 passed to deleteCustomData must type of string.');
+        }
         return this._invoke('deleteCustomData', {'id': custom_data_id});
     }
 
@@ -776,7 +1080,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getOwnFiles(filter, order, page, limit) {
+    getOwnFiles(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getOwnFiles must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getOwnFiles must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getOwnFiles must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getOwnFiles must type of number.');
+        }
         return this._invoke(
             'getOwnFiles',
             {
@@ -793,6 +1109,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getOwnFile(own_file_id) {
+        if (typeof own_file_id !== "string") {
+            throw Error('Argument 1 passed to getOwnFile must type of string.');
+        }
         return this._invoke('getOwnFile', {'id': own_file_id});
     }
 
@@ -801,6 +1120,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveOwnFile(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveOwnFile must type of object.');
+        }
         return this._invoke('saveOwnFile', data);
     }
 
@@ -812,6 +1134,9 @@ class mySALESGUIDE {
         if (typeof own_file_id === "object") {
             own_file_id = own_file_id._id;
         }
+        if (typeof own_file_id !== "string") {
+            throw Error('Argument 1 passed to deleteOwnFile must type of string.');
+        }
         return this._invoke('deleteOwnFile', {'id': own_file_id});
     }
 
@@ -822,7 +1147,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getFileManagerDocs(filter, order, page, limit) {
+    getFileManagerDocs(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getFileManagerDocs must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getFileManagerDocs must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getFileManagerDocs must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getFileManagerDocs must type of number.');
+        }
         return this._invoke(
             'getFileManagerDocs',
             {
@@ -839,6 +1176,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getFileManagerDoc(filemanager_id) {
+        if (typeof filemanager_id !== "string") {
+            throw Error('Argument 1 passed to getFileManagerDoc must type of string.');
+        }
         return this._invoke('getFileManagerDoc', {'id': filemanager_id});
     }
 
@@ -849,7 +1189,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getLinkGroups(filter, order, page, limit) {
+    getLinkGroups(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getLinkGroups must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getLinkGroups must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getLinkGroups must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getLinkGroups must type of number.');
+        }
         return this._invoke(
             'getLinkGroups',
             {
@@ -866,6 +1218,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getLinkGroup(link_group_id) {
+        if (typeof link_group_id !== "string") {
+            throw Error('Argument 1 passed to getLinkGroup must type of string.');
+        }
         return this._invoke('getLinkGroup', {'id': link_group_id});
     }
 
@@ -877,7 +1232,19 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      */
-    getLinks(filter, order, page, limit) {
+    getLinks(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getLinks must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getLinks must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getLinks must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getLinks must type of number.');
+        }
         return this._invoke(
             'getLinks',
             {
@@ -894,6 +1261,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getLink(link_id) {
+        if (typeof link_id !== "string") {
+            throw Error('Argument 1 passed to getLink must type of string.');
+        }
         return this._invoke('getLink', {'id': link_id});
     }
 
@@ -904,7 +1274,19 @@ class mySALESGUIDE {
      * @param {Number} limit
      * @return {Promise}
      */
-    getTags(filter, order, page, limit) {
+    getTags(filter = [], order = [], page = 0, limit = 0) {
+        if (typeof filter !== "string") {
+            throw Error('Argument 1 passed to getTags must type of array.');
+        }
+        if (typeof order !== "object") {
+            throw Error('Argument 2 passed to getTags must type of array.');
+        }
+        if (typeof page !== "string") {
+            throw Error('Argument 3 passed to getTags must type of number.');
+        }
+        if (typeof limit !== "object") {
+            throw Error('Argument 4 passed to getTags must type of number.');
+        }
         return this._invoke(
             'getTags',
             {
@@ -921,6 +1303,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getTag(tag_id) {
+        if (typeof tag_id !== "string") {
+            throw Error('Argument 1 passed to getTag must type of string.');
+        }
         return this._invoke('getTag', {'id': tag_id});
     }
 
@@ -929,6 +1314,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveTag(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveTag must type of object.');
+        }
         return this._invoke('saveTag', data);
     }
 
@@ -940,6 +1328,9 @@ class mySALESGUIDE {
         if (typeof tag_id === "object") {
             tag_id = tag_id._id;
         }
+        if (typeof tag_id !== "string") {
+            throw Error('Argument 1 passed to deleteTag must type of string.');
+        }
         return this._invoke('deleteTag', {'id': tag_id});
     }
 
@@ -948,6 +1339,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     getAttachment(attachment_id) {
+        if (typeof attachment_id !== "string") {
+            throw Error('Argument 1 passed to getAttachment must type of string.');
+        }
         return this._invoke('getAttachment', {'id': attachment_id});
     }
 
@@ -956,6 +1350,9 @@ class mySALESGUIDE {
      * @return {Promise}
      */
     saveAttachment(data) {
+        if (typeof data !== "object") {
+            throw Error('Argument 1 passed to saveAttachment must type of object.');
+        }
         return this._invoke('saveAttachment', data);
     }
 
