@@ -89,7 +89,7 @@ class mySALESGUIDE {
      * @return {Promise}
      * @private
      */
-    _invoke(method, parameters = {}, timeout) {
+    _invoke(method, parameters = {}, timeout = 0) {
         return new Promise((resolve, reject) => {
             let callbackId = this.uuid('callback');
             this.callbacks[callbackId] = {
@@ -155,6 +155,7 @@ class mySALESGUIDE {
      * @param {String} url
      * @param {Boolean} close_presentation
      * @return {Promise}
+     * @throws {Error}
      */
     openShortLink(url, close_presentation = false) {
         if (typeof url !== "string") {
@@ -173,6 +174,7 @@ class mySALESGUIDE {
      * @param {String} url
      * @param {String} title
      * @return {Promise}
+     * @throws {Error}
      */
     openPopup(url, title) {
         if (typeof url !== "string") {
@@ -191,6 +193,7 @@ class mySALESGUIDE {
      * @param {String} url
      * @param {String} title
      * @return {Promise}
+     * @throws {Error}
      */
     openBrowser(url, title) {
         if (typeof url !== "string") {
@@ -206,6 +209,7 @@ class mySALESGUIDE {
      * @param {String} attachment
      * @param {Object} options
      * @return {Promise}
+     * @throws {Error}
      */
     openPdfViewer(attachment, options = {}) {
         if (typeof attachment !== "string") {
@@ -239,6 +243,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getUsers(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -267,6 +272,7 @@ class mySALESGUIDE {
     /**
      * @param {String} user_id
      * @return {Promise}
+     * @throws {Error}
      */
     getUser(user_id) {
         if (typeof user_id !== "string") {
@@ -285,6 +291,7 @@ class mySALESGUIDE {
     /**
      * @param {Array} scopes
      * @return {Promise}
+     * @throws {Error}
      */
     getAccessToken(scopes) {
         if (typeof scopes !== "object") {
@@ -299,6 +306,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getGroups(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -327,6 +335,7 @@ class mySALESGUIDE {
     /**
      * @param {String} group_id
      * @return {Promise}
+     * @throws {Error}
      */
     getGroup(group_id) {
         if (typeof group_id !== "string") {
@@ -341,6 +350,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getPermissions(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -369,6 +379,7 @@ class mySALESGUIDE {
     /**
      * @param {String} permission_id
      * @return {Promise}
+     * @throws {Error}
      */
     getPermission(permission_id) {
         if (typeof permission_id !== "string") {
@@ -383,6 +394,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getLanguages(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -411,6 +423,7 @@ class mySALESGUIDE {
     /**
      * @param {String} language_id
      * @return {Promise}
+     * @throws {Error}
      */
     getLanguage(language_id) {
         if (typeof language_id !== "string") {
@@ -425,6 +438,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCountries(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -453,6 +467,7 @@ class mySALESGUIDE {
     /**
      * @param {String} country_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCountry(country_id) {
         if (typeof country_id !== "string") {
@@ -467,6 +482,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmIndustries(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -495,6 +511,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_Industry_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmIndustry(crm_Industry_id) {
         if (typeof crm_Industry_id !== "string") {
@@ -509,6 +526,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmPriorities(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -537,6 +555,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_priority_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmPriority(crm_priority_id) {
         if (typeof crm_priority_id !== "string") {
@@ -551,6 +570,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmSources(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -579,6 +599,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_source_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmSource(crm_source_id) {
         if (typeof crm_source_id !== "string") {
@@ -593,6 +614,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmCompanies(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -621,6 +643,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_company_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmCompany(crm_company_id) {
         if (typeof crm_company_id !== "string") {
@@ -632,6 +655,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCrmCompany(data) {
         if (typeof data !== "object") {
@@ -643,6 +667,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_company_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteCrmCompany(crm_company_id) {
         if (typeof crm_company_id === "object") {
@@ -660,6 +685,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmCompanyNotes(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -688,6 +714,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_company_note_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmCompanyNote(crm_company_note_id) {
         if (typeof crm_company_note_id !== "string") {
@@ -699,6 +726,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCrmCompanyNote(data) {
         if (typeof data !== "object") {
@@ -708,9 +736,9 @@ class mySALESGUIDE {
     }
 
     /**
-     * @return {Promise}
-     *
      * @param {String} crm_company_note_id
+     * @return {Promise}
+     * @throws {Error}
      */
     deleteCrmCompanyNote(crm_company_note_id) {
         if (typeof crm_company_note_id === "object") {
@@ -728,6 +756,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmCompanyFiles(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -756,6 +785,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_company_file_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmCompanyFile(crm_company_file_id) {
         if (typeof crm_company_file_id !== "string") {
@@ -767,6 +797,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCrmCompanyFile(data) {
         if (typeof data !== "object") {
@@ -778,6 +809,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_company_file_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteCrmCompanyFile(crm_company_file_id) {
         if (typeof crm_company_file_id === "object") {
@@ -802,6 +834,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmContacts(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -830,6 +863,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_contact_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmContact(crm_contact_id) {
         if (typeof crm_contact_id !== "string") {
@@ -841,6 +875,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCrmContact(data) {
         if (typeof data !== "object") {
@@ -852,6 +887,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_contact_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteCrmContact(crm_contact_id) {
         if (typeof crm_contact_id === "object") {
@@ -869,6 +905,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmContactNotes(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -897,6 +934,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_contact_note_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmContactNote(crm_contact_note_id) {
         if (typeof crm_contact_note_id !== "string") {
@@ -908,6 +946,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCrmContactNote(data) {
         if (typeof data !== "object") {
@@ -919,6 +958,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_contact_note_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteCrmContactNote(crm_contact_note_id) {
         if (typeof crm_contact_note_id === "object") {
@@ -936,6 +976,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmContactFiles(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -964,6 +1005,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_contact_file_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCrmContactFile(crm_contact_file_id) {
         if (typeof crm_contact_file_id !== "string") {
@@ -975,6 +1017,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveCrmContactFile(data) {
         if (typeof data !== "object") {
@@ -986,6 +1029,7 @@ class mySALESGUIDE {
     /**
      * @param {String} crm_contact_file_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteCrmContactFile(crm_contact_file_id) {
         if (typeof crm_contact_file_id === "object") {
@@ -1003,6 +1047,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getCustomDataDocs(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -1031,6 +1076,7 @@ class mySALESGUIDE {
     /**
      * @param {String} custom_data_id
      * @return {Promise}
+     * @throws {Error}
      */
     getCustomDataDoc(custom_data_id) {
         if (typeof custom_data_id !== "string") {
@@ -1043,10 +1089,20 @@ class mySALESGUIDE {
      * @param {Object} data
      * @return {Promise}
      * @throws {Error}
+     * @throws {Error}
      */
     saveCustomData(data) {
         if (typeof data !== "object") {
             throw Error('Argument 1 passed to saveCustomData must type of object.');
+        }
+        if (typeof data.client_id !== "string") {
+            throw Error('Argument 1 passed to saveCustomData must type of object with client_id.');
+        }
+        if (typeof data.custom_type !== "string") {
+            throw Error('Argument 1 passed to saveCustomData must type of object with custom_type.');
+        }
+        if (typeof data.custom_key !== "string") {
+            throw Error('Argument 1 passed to saveCustomData must type of object with custom_key.');
         }
         if (!data.client_id || !data.custom_type || !data.custom_key) {
             throw Error('Could not build custom_data key');
@@ -1062,6 +1118,7 @@ class mySALESGUIDE {
     /**
      * @param {String} custom_data_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteCustomData(custom_data_id) {
         if (typeof custom_data_id === "object") {
@@ -1079,6 +1136,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getOwnFiles(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -1107,6 +1165,7 @@ class mySALESGUIDE {
     /**
      * @param {String} own_file_id
      * @return {Promise}
+     * @throws {Error}
      */
     getOwnFile(own_file_id) {
         if (typeof own_file_id !== "string") {
@@ -1118,6 +1177,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveOwnFile(data) {
         if (typeof data !== "object") {
@@ -1129,6 +1189,7 @@ class mySALESGUIDE {
     /**
      * @param {String} own_file_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteOwnFile(own_file_id) {
         if (typeof own_file_id === "object") {
@@ -1146,6 +1207,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getFileManagerDocs(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -1174,6 +1236,7 @@ class mySALESGUIDE {
     /**
      * @param {String} filemanager_id
      * @return {Promise}
+     * @throws {Error}
      */
     getFileManagerDoc(filemanager_id) {
         if (typeof filemanager_id !== "string") {
@@ -1188,6 +1251,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getLinkGroups(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -1216,6 +1280,7 @@ class mySALESGUIDE {
     /**
      * @param {String} link_group_id
      * @return {Promise}
+     * @throws {Error}
      */
     getLinkGroup(link_group_id) {
         if (typeof link_group_id !== "string") {
@@ -1225,12 +1290,12 @@ class mySALESGUIDE {
     }
 
     /**
-     * @return {Promise}
-     *
      * @param {Array} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
+     * @return {Promise}
+     * @throws {Error}
      */
     getLinks(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -1259,6 +1324,7 @@ class mySALESGUIDE {
     /**
      * @param {String} link_id
      * @return {Promise}
+     * @throws {Error}
      */
     getLink(link_id) {
         if (typeof link_id !== "string") {
@@ -1273,6 +1339,7 @@ class mySALESGUIDE {
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
+     * @throws {Error}
      */
     getTags(filter = [], order = [], page = 0, limit = 0) {
         if (typeof filter !== "string") {
@@ -1301,6 +1368,7 @@ class mySALESGUIDE {
     /**
      * @param {String} tag_id
      * @return {Promise}
+     * @throws {Error}
      */
     getTag(tag_id) {
         if (typeof tag_id !== "string") {
@@ -1312,6 +1380,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveTag(data) {
         if (typeof data !== "object") {
@@ -1323,6 +1392,7 @@ class mySALESGUIDE {
     /**
      * @param {String} tag_id
      * @return {Promise}
+     * @throws {Error}
      */
     deleteTag(tag_id) {
         if (typeof tag_id === "object") {
@@ -1337,6 +1407,7 @@ class mySALESGUIDE {
     /**
      * @param {String} attachment_id
      * @return {Promise}
+     * @throws {Error}
      */
     getAttachment(attachment_id) {
         if (typeof attachment_id !== "string") {
@@ -1348,6 +1419,7 @@ class mySALESGUIDE {
     /**
      * @param {Object} data
      * @return {Promise}
+     * @throws {Error}
      */
     saveAttachment(data) {
         if (typeof data !== "object") {
