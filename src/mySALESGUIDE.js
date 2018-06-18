@@ -23,15 +23,13 @@ class mySALESGUIDE {
             this._onMessage(event)
         });
 
-        this.information = {};
-        this.checkAvailable().then(() => {
-            this.getInformation().then((information) => {
-                this.information = information;
-                if (typeof this.window.initPresentation === "function") {
-                    this.window.initPresentation(this.information);
-                }
+        if (typeof this.window.initPresentation === "function") {
+            this.checkAvailable().then(() => {
+                this.getInformation().then((information) => {
+                    this.window.initPresentation(information);
+                });
             });
-        });
+        }
     }
 
     /**
@@ -140,7 +138,7 @@ class mySALESGUIDE {
                 reject('mySALESGUIDE 3 JS-API is not available.', this.ERROR_API_OFFLINE);
                 return;
             }
-            this._invoke('checkAvailable', {}, 5000)
+            this._invoke('checkAvailable', {}, 1000)
                 .then(() => {
                     this.online = true;
                     resolve();
@@ -294,7 +292,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getAccessToken(scopes) {
-        if (typeof scopes !== "object") {
+        if (!Array.isArray(scopes)) {
             throw Error('Argument 1 passed to getAccessToken must type of array.');
         }
         return this._invoke('getAccessToken', {'scopes': scopes});

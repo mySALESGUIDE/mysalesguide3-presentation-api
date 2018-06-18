@@ -1,1 +1,1211 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},_createClass=function(){function r(t,e){for(var o=0;o<e.length;o++){var r=e[o];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(t,e,o){return e&&r(t.prototype,e),o&&r(t,o),t}}();function _classCallCheck(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var mySALESGUIDE=function(){function r(t){var e=this,o=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{};_classCallCheck(this,r),this.online=!0,this.callbacks=[],this.window=t,this.options={defaultTimeout:3e5,defaultFilter:[],defaultOrder:[["created_at",this.ORDER_ASC]],defaultPage:1,defaultLimit:25},this.options=Object.assign({},this.options,o||{}),this.window.addEventListener("message",function(t){e._onMessage(t)}),this.information={},this.checkAvailable().then(function(){e.getInformation().then(function(t){e.information=t,"function"==typeof e.window.initPresentation&&e.window.initPresentation(e.information)})})}return _createClass(r,[{key:"_onMessage",value:function(t){if(t.data&&t.data.hasOwnProperty("callback_identifier")){var e=t.data.callback_identifier;if(this.callbacks[e]){this.callbacks[e].timeout&&(clearTimeout(this.callbacks[e].defaultTimeout),this.callbacks[e].timeout=null);var o=t.data.callback_arguments?t.data.callback_arguments:[];t.data.callback_success?this.callbacks[e].success.apply(null,o):this.callbacks[e].error.apply(null,["mySALESGUIDE 3 API error",this.ERROR_API_UNKNOWN]),delete this.callbacks[e]}}}},{key:"_cancel",value:function(t){var e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:"Unknown Error.",o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:10001;e=e||"Timeout.",o=o||this.ERROR_API_TIMEOUT,this.callbacks[t]&&(this.callbacks[t].timeout&&(clearTimeout(this.callbacks[t].timeout),this.callbacks[t].timeout=null),this.callbacks[t].error.apply(null,[e,o]),delete this.callbacks[t])}},{key:"_invoke",value:function(i){var n=this,s=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},u=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0;return new Promise(function(t,e){var o=n.uuid("callback");n.callbacks[o]={success:t,error:e,timeout:setTimeout(function(){this._cancel(o,"Timeout.",this.ERROR_API_TIMEOUT)}.bind(n),u||n.options.defaultTimeout)};try{if(!n.online)return void n._cancel(o,"mySALESGUIDE 3 API is offline.",n.ERROR_API_OFFLINE);var r=s||{};r.action=i,r.callback_identifier=o,r=JSON.parse(JSON.stringify(r)),n._sendMessage(r)}catch(t){n._cancel(o,t.message,t.code)}})}},{key:"_sendMessage",value:function(t){"object"===(void 0===t?"undefined":_typeof(t))&&t.action&&this.window.parent.postMessage(t,"*")}},{key:"checkAvailable",value:function(){var e=this;return new Promise(function(t,o){if(!e.window.parent||e.window.parent===e.window)return e.online=!1,e.window.console.error("mySALESGUIDE 3 JS-API is not available."),void o("mySALESGUIDE 3 JS-API is not available.",e.ERROR_API_OFFLINE);e._invoke("checkAvailable",{},5e3).then(function(){e.online=!0,t()}).catch(function(t,e){o(t,e)})})}},{key:"openShortLink",value:function(t){var e=1<arguments.length&&void 0!==arguments[1]&&arguments[1];if("string"!=typeof t)throw Error("Argument 1 passed to openShortLink must type of string.");if("boolean"!=typeof e)throw Error("Argument 2 passed to openShortLink must type of boolean.");return this._invoke("openShortlink",{url:t,close_presentation:e})}},{key:"openPopup",value:function(t,e){if("string"!=typeof t)throw Error("Argument 1 passed to openPopup must type of string.");if("string"!=typeof e)throw Error("Argument 2 passed to openPopup must type of string.");return this._invoke("openShortlink",{url:t,title:e})}},{key:"openBrowser",value:function(t,e){if("string"!=typeof t)throw Error("Argument 1 passed to openBrowser must type of string.");if("string"!=typeof e)throw Error("Argument 2 passed to openBrowser must type of string.");return this._invoke("openBrowser",{url:t,title:e})}},{key:"openPdfViewer",value:function(t){var e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{};if("string"!=typeof t)throw Error("Argument 1 passed to openPdfViewer must type of string.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to openPdfViewer must type of object.");return 0===t.indexOf("data:")?this._invoke("openPdfViewer",Object.assign({},e,{content:t})):this._invoke("openPdfViewer",Object.assign({},e,{attachment_id:t}))}},{key:"getInformation",value:function(){return this._invoke("getInformation",{})}},{key:"getUsers",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getUsers must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getUsers must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getUsers must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getUsers must type of number.");return this._invoke("getUsers",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getUser",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getUser must type of string.");return this._invoke("getUser",{id:t})}},{key:"getMe",value:function(){return this._invoke("getMe",{})}},{key:"getAccessToken",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to getAccessToken must type of array.");return this._invoke("getAccessToken",{scopes:t})}},{key:"getGroups",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getGroups must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getGroups must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getGroups must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getGroups must type of number.");return this._invoke("getGroups",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getGroup",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getGroup must type of string.");return this._invoke("getGroup",{id:t})}},{key:"getPermissions",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getPermissions must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getPermissions must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getPermissions must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getPermissions must type of number.");return this._invoke("getPermissions",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getPermission",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getPermission must type of string.");return this._invoke("getPermission",{id:t})}},{key:"getLanguages",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getLanguages must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getLanguages must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getLanguages must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getLanguages must type of number.");return this._invoke("getLanguages",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getLanguage",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getLanguage must type of string.");return this._invoke("getLanguage",{id:t})}},{key:"getCountries",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCountries must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCountries must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCountries must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCountries must type of number.");return this._invoke("getCountries",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCountry",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCountry must type of string.");return this._invoke("getCountry",{id:t})}},{key:"getCrmIndustries",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmIndustries must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmIndustries must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmIndustries must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmIndustries must type of number.");return this._invoke("getCrmIndustries",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmIndustry",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmIndustry must type of string.");return this._invoke("getCrmIndustry",{id:t})}},{key:"getCrmPriorities",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmPriorities must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmPriorities must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmPriorities must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmPriorities must type of number.");return this._invoke("getCrmPriorities",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmPriority",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmPriority must type of string.");return this._invoke("getCrmPriority",{id:t})}},{key:"getCrmSources",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmSources must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmSources must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmSources must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmSources must type of number.");return this._invoke("getCrmSources",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmSource",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmSource must type of string.");return this._invoke("getCrmSource",{id:t})}},{key:"getCrmCompanies",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmCompanies must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmCompanies must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmCompanies must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmCompanies must type of number.");return this._invoke("getCrmCompanies",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmCompany",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmCompany must type of string.");return this._invoke("getCrmCompany",{id:t})}},{key:"saveCrmCompany",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCrmCompany must type of object.");return this._invoke("saveCrmCompany",t)}},{key:"deleteCrmCompany",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to saveCrmCompany must type of string.");return this._invoke("deleteCrmCompany",{id:t})}},{key:"getCrmCompanyNotes",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmCompanyNotes must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmCompanyNotes must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmCompanyNotes must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmCompanyNotes must type of number.");return this._invoke("getCrmCompanyNotes",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmCompanyNote",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmCompanyNote must type of string.");return this._invoke("getCrmCompanyNote",{id:t})}},{key:"saveCrmCompanyNote",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCrmCompanyNote must type of object.");return this._invoke("saveCrmCompanyNote",t)}},{key:"deleteCrmCompanyNote",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteCrmCompanyNote must type of string.");return this._invoke("deleteCrmCompanyNote",{id:t})}},{key:"getCrmCompanyFiles",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmCompanyFiles must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmCompanyFiles must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmCompanyFiles must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmCompanyFiles must type of number.");return this._invoke("getCrmCompanyFiles",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmCompanyFile",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmCompanyFile must type of string.");return this._invoke("getCrmCompanyFile",{id:t})}},{key:"saveCrmCompanyFile",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCrmCompanyFile must type of object.");return this._invoke("saveCrmCompanyFile",t)}},{key:"deleteCrmCompanyFile",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteCrmCompanyFile must type of string.");return this._invoke("deleteCrmCompanyFile",{id:t})}},{key:"selectCrmContact",value:function(){return this._invoke("selectCrmContact",{})}},{key:"getCrmContacts",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmContacts must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmContacts must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmContacts must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmContacts must type of number.");return this._invoke("getCrmContacts",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmContact",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmContact must type of string.");return this._invoke("getCrmContact",{id:t})}},{key:"saveCrmContact",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCrmContact must type of object.");return this._invoke("saveCrmContact",t)}},{key:"deleteCrmContact",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteCrmContact must type of string.");return this._invoke("deleteCrmContact",{id:t})}},{key:"getCrmContactNotes",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmContactNotes must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmContactNotes must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmContactNotes must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmContactNotes must type of number.");return this._invoke("getCrmContactNotes",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmContactNote",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmContactNote must type of string.");return this._invoke("getCrmContactNote",{id:t})}},{key:"saveCrmContactNote",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCrmContactNote must type of object.");return this._invoke("saveCrmContactNote",t)}},{key:"deleteCrmContactNote",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteCrmContactNote must type of string.");return this._invoke("deleteCrmContactNote",{id:t})}},{key:"getCrmContactFiles",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCrmContactFiles must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCrmContactFiles must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCrmContactFiles must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCrmContactFiles must type of number.");return this._invoke("getCrmContactFiles",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCrmContactFile",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCrmContactFile must type of string.");return this._invoke("getCrmContactFile",{id:t})}},{key:"saveCrmContactFile",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCrmContactFile must type of object.");return this._invoke("saveCrmContactFile",t)}},{key:"deleteCrmContactFile",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteCrmContactFile must type of string.");return this._invoke("deleteCrmContactFile",{id:t})}},{key:"getCustomDataDocs",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getCustomDataDocs must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getCustomDataDocs must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getCustomDataDocs must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getCustomDataDocs must type of number.");return this._invoke("getCustomDataDocs",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getCustomDataDoc",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getCustomDataDoc must type of string.");return this._invoke("getCustomDataDoc",{id:t})}},{key:"saveCustomData",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveCustomData must type of object.");if("string"!=typeof t.client_id)throw Error("Argument 1 passed to saveCustomData must type of object with client_id.");if("string"!=typeof t.custom_type)throw Error("Argument 1 passed to saveCustomData must type of object with custom_type.");if("string"!=typeof t.custom_key)throw Error("Argument 1 passed to saveCustomData must type of object with custom_key.");if(!t.client_id||!t.custom_type||!t.custom_key)throw Error("Could not build custom_data key");var e="custom_data::"+t.client_id+"::"+t.custom_type;return t.user_id&&(e+="::"+t.user_id),t.id=e+"::"+t.custom_key,this._invoke("saveCustomData",t)}},{key:"deleteCustomData",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteCustomData must type of string.");return this._invoke("deleteCustomData",{id:t})}},{key:"getOwnFiles",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getOwnFiles must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getOwnFiles must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getOwnFiles must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getOwnFiles must type of number.");return this._invoke("getOwnFiles",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getOwnFile",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getOwnFile must type of string.");return this._invoke("getOwnFile",{id:t})}},{key:"saveOwnFile",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveOwnFile must type of object.");return this._invoke("saveOwnFile",t)}},{key:"deleteOwnFile",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteOwnFile must type of string.");return this._invoke("deleteOwnFile",{id:t})}},{key:"getFileManagerDocs",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getFileManagerDocs must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getFileManagerDocs must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getFileManagerDocs must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getFileManagerDocs must type of number.");return this._invoke("getFileManagerDocs",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getFileManagerDoc",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getFileManagerDoc must type of string.");return this._invoke("getFileManagerDoc",{id:t})}},{key:"getLinkGroups",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getLinkGroups must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getLinkGroups must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getLinkGroups must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getLinkGroups must type of number.");return this._invoke("getLinkGroups",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getLinkGroup",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getLinkGroup must type of string.");return this._invoke("getLinkGroup",{id:t})}},{key:"getLinks",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getLinks must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getLinks must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getLinks must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getLinks must type of number.");return this._invoke("getLinks",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getLink",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getLink must type of string.");return this._invoke("getLink",{id:t})}},{key:"getTags",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:[],e=1<arguments.length&&void 0!==arguments[1]?arguments[1]:[],o=2<arguments.length&&void 0!==arguments[2]?arguments[2]:0,r=3<arguments.length&&void 0!==arguments[3]?arguments[3]:0;if("string"!=typeof t)throw Error("Argument 1 passed to getTags must type of array.");if("object"!==(void 0===e?"undefined":_typeof(e)))throw Error("Argument 2 passed to getTags must type of array.");if("string"!=typeof o)throw Error("Argument 3 passed to getTags must type of number.");if("object"!==(void 0===r?"undefined":_typeof(r)))throw Error("Argument 4 passed to getTags must type of number.");return this._invoke("getTags",{filter:t||this.options.defaultFilter,order:e||this.options.defaultOrder,page:o||this.options.defaultPage,limit:r||this.options.defaultLimit})}},{key:"getTag",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getTag must type of string.");return this._invoke("getTag",{id:t})}},{key:"saveTag",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveTag must type of object.");return this._invoke("saveTag",t)}},{key:"deleteTag",value:function(t){if("object"===(void 0===t?"undefined":_typeof(t))&&(t=t._id),"string"!=typeof t)throw Error("Argument 1 passed to deleteTag must type of string.");return this._invoke("deleteTag",{id:t})}},{key:"getAttachment",value:function(t){if("string"!=typeof t)throw Error("Argument 1 passed to getAttachment must type of string.");return this._invoke("getAttachment",{id:t})}},{key:"saveAttachment",value:function(t){if("object"!==(void 0===t?"undefined":_typeof(t)))throw Error("Argument 1 passed to saveAttachment must type of object.");return this._invoke("saveAttachment",t)}},{key:"uuid",value:function(){var t=0<arguments.length&&void 0!==arguments[0]?arguments[0]:null;return(t?t+"_":"")+"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(t){var e=16*Math.random()|0;return("x"===t?e:3&e|8).toString(16)})}}]),r}();Object.defineProperties(mySALESGUIDE,{VERSION:{value:"2.0.0",writeable:!1,configurable:!1,enumerable:!0},ERROR_API_UNKNOWN:{value:10001,writeable:!1,configurable:!1,enumerable:!0},ERROR_API_TIMEOUT:{value:10002,writeable:!1,configurable:!1,enumerable:!0},ERROR_API_OFFLINE:{value:10003,writeable:!1,configurable:!1,enumerable:!0},ORDER_ASC:{value:"asc",writeable:!1,configurable:!1,enumerable:!0},ORDER_DESC:{value:"desc",writeable:!1,configurable:!1,enumerable:!0}}),exports.default=mySALESGUIDE;
+(function (global, factory) {
+    if (typeof define === "function" && define.amd) {
+        define(['module', 'exports'], factory);
+    } else if (typeof exports !== "undefined") {
+        factory(module, exports);
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod, mod.exports);
+        global.mySALESGUIDE = mod.exports;
+    }
+})(this, function (module, exports) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+        return typeof obj;
+    } : function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    var mySALESGUIDE = function () {
+
+        /**
+         * @param {Window} window
+         * @param {Object} options
+         */
+        function mySALESGUIDE(window) {
+            var _this = this;
+
+            var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            _classCallCheck(this, mySALESGUIDE);
+
+            this.online = true;
+            this.callbacks = [];
+            this.window = window;
+            this.options = {
+                defaultTimeout: 300000,
+                defaultFilter: [],
+                defaultOrder: [['created_at', this.ORDER_ASC]],
+                defaultPage: 1,
+                defaultLimit: 25
+            };
+            this.options = Object.assign({}, this.options, !!options ? options : {});
+
+            this.window.addEventListener('message', function (event) {
+                _this._onMessage(event);
+            });
+
+            if (typeof this.window.initPresentation === "function") {
+                this.checkAvailable().then(function () {
+                    _this.getInformation().then(function (information) {
+                        _this.window.initPresentation(information);
+                    });
+                });
+            }
+        }
+
+        /**
+         * @param {MessageEvent} event
+         * @private
+         */
+
+
+        _createClass(mySALESGUIDE, [{
+            key: '_onMessage',
+            value: function _onMessage(event) {
+                if (!event.data) {
+                    return;
+                }
+                if (!event.data.hasOwnProperty('callback_identifier')) {
+                    return;
+                }
+                var callbackId = event.data.callback_identifier;
+                if (!this.callbacks[callbackId]) {
+                    return;
+                }
+                if (this.callbacks[callbackId].timeout) {
+                    clearTimeout(this.callbacks[callbackId].defaultTimeout);
+                    this.callbacks[callbackId].timeout = null;
+                }
+                var parameters = !!event.data.callback_arguments ? event.data.callback_arguments : [];
+                if (!!event.data.callback_success) {
+                    this.callbacks[callbackId].success.apply(null, parameters);
+                } else {
+                    this.callbacks[callbackId].error.apply(null, ['mySALESGUIDE 3 API error', this.ERROR_API_UNKNOWN]);
+                }
+                delete this.callbacks[callbackId];
+            }
+        }, {
+            key: '_cancel',
+            value: function _cancel(callbackId) {
+                var message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Unknown Error.';
+                var code = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10001;
+
+                message = !!message ? message : 'Timeout.';
+                code = !!code ? code : this.ERROR_API_TIMEOUT;
+                if (!this.callbacks[callbackId]) {
+                    return;
+                }
+                if (this.callbacks[callbackId].timeout) {
+                    clearTimeout(this.callbacks[callbackId].timeout);
+                    this.callbacks[callbackId].timeout = null;
+                }
+                this.callbacks[callbackId].error.apply(null, [message, code]);
+                delete this.callbacks[callbackId];
+            }
+        }, {
+            key: '_invoke',
+            value: function _invoke(method) {
+                var _this2 = this;
+
+                var parameters = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+                return new Promise(function (resolve, reject) {
+                    var callbackId = _this2.uuid('callback');
+                    _this2.callbacks[callbackId] = {
+                        'success': resolve,
+                        'error': reject,
+                        'timeout': setTimeout(function () {
+                            this._cancel(callbackId, 'Timeout.', this.ERROR_API_TIMEOUT);
+                        }.bind(_this2), !!timeout ? timeout : _this2.options.defaultTimeout)
+                    };
+                    try {
+                        if (!_this2.online) {
+                            _this2._cancel(callbackId, 'mySALESGUIDE 3 API is offline.', _this2.ERROR_API_OFFLINE);
+                            return;
+                        }
+                        var message = parameters || {};
+                        message.action = method;
+                        message.callback_identifier = callbackId;
+                        message = JSON.parse(JSON.stringify(message)); // check json data
+                        _this2._sendMessage(message);
+                    } catch (e) {
+                        _this2._cancel(callbackId, e.message, e.code);
+                    }
+                });
+            }
+        }, {
+            key: '_sendMessage',
+            value: function _sendMessage(message) {
+                if ((typeof message === 'undefined' ? 'undefined' : _typeof(message)) !== "object") {
+                    return;
+                }
+                if (!message.action) {
+                    return;
+                }
+                this.window.parent.postMessage(message, '*');
+            }
+        }, {
+            key: 'checkAvailable',
+            value: function checkAvailable() {
+                var _this3 = this;
+
+                return new Promise(function (resolve, reject) {
+                    if (!_this3.window.parent || _this3.window.parent === _this3.window) {
+                        _this3.online = false;
+                        _this3.window.console.error('mySALESGUIDE 3 JS-API is not available.');
+                        reject('mySALESGUIDE 3 JS-API is not available.', _this3.ERROR_API_OFFLINE);
+                        return;
+                    }
+                    _this3._invoke('checkAvailable', {}, 1000).then(function () {
+                        _this3.online = true;
+                        resolve();
+                    }).catch(function (message, code) {
+                        reject(message, code);
+                    });
+                });
+            }
+        }, {
+            key: 'openShortLink',
+            value: function openShortLink(url) {
+                var close_presentation = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+                if (typeof url !== "string") {
+                    throw Error('Argument 1 passed to openShortLink must type of string.');
+                }
+                if (typeof close_presentation !== "boolean") {
+                    throw Error('Argument 2 passed to openShortLink must type of boolean.');
+                }
+                return this._invoke('openShortlink', {
+                    'url': url,
+                    'close_presentation': close_presentation
+                });
+            }
+        }, {
+            key: 'openPopup',
+            value: function openPopup(url, title) {
+                if (typeof url !== "string") {
+                    throw Error('Argument 1 passed to openPopup must type of string.');
+                }
+                if (typeof title !== "string") {
+                    throw Error('Argument 2 passed to openPopup must type of string.');
+                }
+                return this._invoke('openShortlink', {
+                    'url': url,
+                    'title': title
+                });
+            }
+        }, {
+            key: 'openBrowser',
+            value: function openBrowser(url, title) {
+                if (typeof url !== "string") {
+                    throw Error('Argument 1 passed to openBrowser must type of string.');
+                }
+                if (typeof title !== "string") {
+                    throw Error('Argument 2 passed to openBrowser must type of string.');
+                }
+                return this._invoke('openBrowser', { 'url': url, 'title': title });
+            }
+        }, {
+            key: 'openPdfViewer',
+            value: function openPdfViewer(attachment) {
+                var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+                if (typeof attachment !== "string") {
+                    throw Error('Argument 1 passed to openPdfViewer must type of string.');
+                }
+                if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) !== "object") {
+                    throw Error('Argument 2 passed to openPdfViewer must type of object.');
+                }
+                if (attachment.indexOf('data:') === 0) {
+                    return this._invoke('openPdfViewer', Object.assign({}, options, { 'content': attachment }));
+                }
+                return this._invoke('openPdfViewer', Object.assign({}, options, { 'attachment_id': attachment }));
+            }
+        }, {
+            key: 'getInformation',
+            value: function getInformation() {
+                return this._invoke('getInformation', {});
+            }
+        }, {
+            key: 'getUsers',
+            value: function getUsers() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getUsers must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getUsers must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getUsers must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getUsers must type of number.');
+                }
+                return this._invoke('getUsers', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getUser',
+            value: function getUser(user_id) {
+                if (typeof user_id !== "string") {
+                    throw Error('Argument 1 passed to getUser must type of string.');
+                }
+                return this._invoke('getUser', { 'id': user_id });
+            }
+        }, {
+            key: 'getMe',
+            value: function getMe() {
+                return this._invoke('getMe', {});
+            }
+        }, {
+            key: 'getAccessToken',
+            value: function getAccessToken(scopes) {
+                if (!Array.isArray(scopes)) {
+                    throw Error('Argument 1 passed to getAccessToken must type of array.');
+                }
+                return this._invoke('getAccessToken', { 'scopes': scopes });
+            }
+        }, {
+            key: 'getGroups',
+            value: function getGroups() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getGroups must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getGroups must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getGroups must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getGroups must type of number.');
+                }
+                return this._invoke('getGroups', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getGroup',
+            value: function getGroup(group_id) {
+                if (typeof group_id !== "string") {
+                    throw Error('Argument 1 passed to getGroup must type of string.');
+                }
+                return this._invoke('getGroup', { 'id': group_id });
+            }
+        }, {
+            key: 'getPermissions',
+            value: function getPermissions() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getPermissions must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getPermissions must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getPermissions must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getPermissions must type of number.');
+                }
+                return this._invoke('getPermissions', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getPermission',
+            value: function getPermission(permission_id) {
+                if (typeof permission_id !== "string") {
+                    throw Error('Argument 1 passed to getPermission must type of string.');
+                }
+                return this._invoke('getPermission', { 'id': permission_id });
+            }
+        }, {
+            key: 'getLanguages',
+            value: function getLanguages() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getLanguages must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getLanguages must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getLanguages must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getLanguages must type of number.');
+                }
+                return this._invoke('getLanguages', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getLanguage',
+            value: function getLanguage(language_id) {
+                if (typeof language_id !== "string") {
+                    throw Error('Argument 1 passed to getLanguage must type of string.');
+                }
+                return this._invoke('getLanguage', { 'id': language_id });
+            }
+        }, {
+            key: 'getCountries',
+            value: function getCountries() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCountries must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCountries must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCountries must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCountries must type of number.');
+                }
+                return this._invoke('getCountries', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCountry',
+            value: function getCountry(country_id) {
+                if (typeof country_id !== "string") {
+                    throw Error('Argument 1 passed to getCountry must type of string.');
+                }
+                return this._invoke('getCountry', { 'id': country_id });
+            }
+        }, {
+            key: 'getCrmIndustries',
+            value: function getCrmIndustries() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmIndustries must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmIndustries must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmIndustries must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmIndustries must type of number.');
+                }
+                return this._invoke('getCrmIndustries', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmIndustry',
+            value: function getCrmIndustry(crm_Industry_id) {
+                if (typeof crm_Industry_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmIndustry must type of string.');
+                }
+                return this._invoke('getCrmIndustry', { 'id': crm_Industry_id });
+            }
+        }, {
+            key: 'getCrmPriorities',
+            value: function getCrmPriorities() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmPriorities must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmPriorities must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmPriorities must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmPriorities must type of number.');
+                }
+                return this._invoke('getCrmPriorities', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmPriority',
+            value: function getCrmPriority(crm_priority_id) {
+                if (typeof crm_priority_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmPriority must type of string.');
+                }
+                return this._invoke('getCrmPriority', { 'id': crm_priority_id });
+            }
+        }, {
+            key: 'getCrmSources',
+            value: function getCrmSources() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmSources must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmSources must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmSources must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmSources must type of number.');
+                }
+                return this._invoke('getCrmSources', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmSource',
+            value: function getCrmSource(crm_source_id) {
+                if (typeof crm_source_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmSource must type of string.');
+                }
+                return this._invoke('getCrmSource', { 'id': crm_source_id });
+            }
+        }, {
+            key: 'getCrmCompanies',
+            value: function getCrmCompanies() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmCompanies must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmCompanies must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmCompanies must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmCompanies must type of number.');
+                }
+                return this._invoke('getCrmCompanies', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmCompany',
+            value: function getCrmCompany(crm_company_id) {
+                if (typeof crm_company_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmCompany must type of string.');
+                }
+                return this._invoke('getCrmCompany', { 'id': crm_company_id });
+            }
+        }, {
+            key: 'saveCrmCompany',
+            value: function saveCrmCompany(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCrmCompany must type of object.');
+                }
+                return this._invoke('saveCrmCompany', data);
+            }
+        }, {
+            key: 'deleteCrmCompany',
+            value: function deleteCrmCompany(crm_company_id) {
+                if ((typeof crm_company_id === 'undefined' ? 'undefined' : _typeof(crm_company_id)) === "object") {
+                    crm_company_id = crm_company_id._id;
+                }
+                if (typeof crm_company_id !== "string") {
+                    throw Error('Argument 1 passed to saveCrmCompany must type of string.');
+                }
+                return this._invoke('deleteCrmCompany', { 'id': crm_company_id });
+            }
+        }, {
+            key: 'getCrmCompanyNotes',
+            value: function getCrmCompanyNotes() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmCompanyNotes must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmCompanyNotes must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmCompanyNotes must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmCompanyNotes must type of number.');
+                }
+                return this._invoke('getCrmCompanyNotes', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmCompanyNote',
+            value: function getCrmCompanyNote(crm_company_note_id) {
+                if (typeof crm_company_note_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmCompanyNote must type of string.');
+                }
+                return this._invoke('getCrmCompanyNote', { 'id': crm_company_note_id });
+            }
+        }, {
+            key: 'saveCrmCompanyNote',
+            value: function saveCrmCompanyNote(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCrmCompanyNote must type of object.');
+                }
+                return this._invoke('saveCrmCompanyNote', data);
+            }
+        }, {
+            key: 'deleteCrmCompanyNote',
+            value: function deleteCrmCompanyNote(crm_company_note_id) {
+                if ((typeof crm_company_note_id === 'undefined' ? 'undefined' : _typeof(crm_company_note_id)) === "object") {
+                    crm_company_note_id = crm_company_note_id._id;
+                }
+                if (typeof crm_company_note_id !== "string") {
+                    throw Error('Argument 1 passed to deleteCrmCompanyNote must type of string.');
+                }
+                return this._invoke('deleteCrmCompanyNote', { 'id': crm_company_note_id });
+            }
+        }, {
+            key: 'getCrmCompanyFiles',
+            value: function getCrmCompanyFiles() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmCompanyFiles must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmCompanyFiles must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmCompanyFiles must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmCompanyFiles must type of number.');
+                }
+                return this._invoke('getCrmCompanyFiles', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmCompanyFile',
+            value: function getCrmCompanyFile(crm_company_file_id) {
+                if (typeof crm_company_file_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmCompanyFile must type of string.');
+                }
+                return this._invoke('getCrmCompanyFile', { 'id': crm_company_file_id });
+            }
+        }, {
+            key: 'saveCrmCompanyFile',
+            value: function saveCrmCompanyFile(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCrmCompanyFile must type of object.');
+                }
+                return this._invoke('saveCrmCompanyFile', data);
+            }
+        }, {
+            key: 'deleteCrmCompanyFile',
+            value: function deleteCrmCompanyFile(crm_company_file_id) {
+                if ((typeof crm_company_file_id === 'undefined' ? 'undefined' : _typeof(crm_company_file_id)) === "object") {
+                    crm_company_file_id = crm_company_file_id._id;
+                }
+                if (typeof crm_company_file_id !== "string") {
+                    throw Error('Argument 1 passed to deleteCrmCompanyFile must type of string.');
+                }
+                return this._invoke('deleteCrmCompanyFile', { 'id': crm_company_file_id });
+            }
+        }, {
+            key: 'selectCrmContact',
+            value: function selectCrmContact() {
+                return this._invoke('selectCrmContact', {});
+            }
+        }, {
+            key: 'getCrmContacts',
+            value: function getCrmContacts() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmContacts must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmContacts must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmContacts must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmContacts must type of number.');
+                }
+                return this._invoke('getCrmContacts', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmContact',
+            value: function getCrmContact(crm_contact_id) {
+                if (typeof crm_contact_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmContact must type of string.');
+                }
+                return this._invoke('getCrmContact', { 'id': crm_contact_id });
+            }
+        }, {
+            key: 'saveCrmContact',
+            value: function saveCrmContact(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCrmContact must type of object.');
+                }
+                return this._invoke('saveCrmContact', data);
+            }
+        }, {
+            key: 'deleteCrmContact',
+            value: function deleteCrmContact(crm_contact_id) {
+                if ((typeof crm_contact_id === 'undefined' ? 'undefined' : _typeof(crm_contact_id)) === "object") {
+                    crm_contact_id = crm_contact_id._id;
+                }
+                if (typeof crm_contact_id !== "string") {
+                    throw Error('Argument 1 passed to deleteCrmContact must type of string.');
+                }
+                return this._invoke('deleteCrmContact', { 'id': crm_contact_id });
+            }
+        }, {
+            key: 'getCrmContactNotes',
+            value: function getCrmContactNotes() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmContactNotes must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmContactNotes must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmContactNotes must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmContactNotes must type of number.');
+                }
+                return this._invoke('getCrmContactNotes', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmContactNote',
+            value: function getCrmContactNote(crm_contact_note_id) {
+                if (typeof crm_contact_note_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmContactNote must type of string.');
+                }
+                return this._invoke('getCrmContactNote', { 'id': crm_contact_note_id });
+            }
+        }, {
+            key: 'saveCrmContactNote',
+            value: function saveCrmContactNote(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCrmContactNote must type of object.');
+                }
+                return this._invoke('saveCrmContactNote', data);
+            }
+        }, {
+            key: 'deleteCrmContactNote',
+            value: function deleteCrmContactNote(crm_contact_note_id) {
+                if ((typeof crm_contact_note_id === 'undefined' ? 'undefined' : _typeof(crm_contact_note_id)) === "object") {
+                    crm_contact_note_id = crm_contact_note_id._id;
+                }
+                if (typeof crm_contact_note_id !== "string") {
+                    throw Error('Argument 1 passed to deleteCrmContactNote must type of string.');
+                }
+                return this._invoke('deleteCrmContactNote', { 'id': crm_contact_note_id });
+            }
+        }, {
+            key: 'getCrmContactFiles',
+            value: function getCrmContactFiles() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCrmContactFiles must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCrmContactFiles must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCrmContactFiles must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCrmContactFiles must type of number.');
+                }
+                return this._invoke('getCrmContactFiles', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCrmContactFile',
+            value: function getCrmContactFile(crm_contact_file_id) {
+                if (typeof crm_contact_file_id !== "string") {
+                    throw Error('Argument 1 passed to getCrmContactFile must type of string.');
+                }
+                return this._invoke('getCrmContactFile', { 'id': crm_contact_file_id });
+            }
+        }, {
+            key: 'saveCrmContactFile',
+            value: function saveCrmContactFile(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCrmContactFile must type of object.');
+                }
+                return this._invoke('saveCrmContactFile', data);
+            }
+        }, {
+            key: 'deleteCrmContactFile',
+            value: function deleteCrmContactFile(crm_contact_file_id) {
+                if ((typeof crm_contact_file_id === 'undefined' ? 'undefined' : _typeof(crm_contact_file_id)) === "object") {
+                    crm_contact_file_id = crm_contact_file_id._id;
+                }
+                if (typeof crm_contact_file_id !== "string") {
+                    throw Error('Argument 1 passed to deleteCrmContactFile must type of string.');
+                }
+                return this._invoke('deleteCrmContactFile', { 'id': crm_contact_file_id });
+            }
+        }, {
+            key: 'getCustomDataDocs',
+            value: function getCustomDataDocs() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getCustomDataDocs must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getCustomDataDocs must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getCustomDataDocs must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getCustomDataDocs must type of number.');
+                }
+                return this._invoke('getCustomDataDocs', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getCustomDataDoc',
+            value: function getCustomDataDoc(custom_data_id) {
+                if (typeof custom_data_id !== "string") {
+                    throw Error('Argument 1 passed to getCustomDataDoc must type of string.');
+                }
+                return this._invoke('getCustomDataDoc', { 'id': custom_data_id });
+            }
+        }, {
+            key: 'saveCustomData',
+            value: function saveCustomData(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveCustomData must type of object.');
+                }
+                if (typeof data.client_id !== "string") {
+                    throw Error('Argument 1 passed to saveCustomData must type of object with client_id.');
+                }
+                if (typeof data.custom_type !== "string") {
+                    throw Error('Argument 1 passed to saveCustomData must type of object with custom_type.');
+                }
+                if (typeof data.custom_key !== "string") {
+                    throw Error('Argument 1 passed to saveCustomData must type of object with custom_key.');
+                }
+                if (!data.client_id || !data.custom_type || !data.custom_key) {
+                    throw Error('Could not build custom_data key');
+                }
+                var id = 'custom_data::' + data.client_id + '::' + data.custom_type;
+                if (!!data.user_id) {
+                    id += '::' + data.user_id;
+                }
+                data.id = id + '::' + data.custom_key;
+                return this._invoke('saveCustomData', data);
+            }
+        }, {
+            key: 'deleteCustomData',
+            value: function deleteCustomData(custom_data_id) {
+                if ((typeof custom_data_id === 'undefined' ? 'undefined' : _typeof(custom_data_id)) === "object") {
+                    custom_data_id = custom_data_id._id;
+                }
+                if (typeof custom_data_id !== "string") {
+                    throw Error('Argument 1 passed to deleteCustomData must type of string.');
+                }
+                return this._invoke('deleteCustomData', { 'id': custom_data_id });
+            }
+        }, {
+            key: 'getOwnFiles',
+            value: function getOwnFiles() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getOwnFiles must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getOwnFiles must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getOwnFiles must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getOwnFiles must type of number.');
+                }
+                return this._invoke('getOwnFiles', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getOwnFile',
+            value: function getOwnFile(own_file_id) {
+                if (typeof own_file_id !== "string") {
+                    throw Error('Argument 1 passed to getOwnFile must type of string.');
+                }
+                return this._invoke('getOwnFile', { 'id': own_file_id });
+            }
+        }, {
+            key: 'saveOwnFile',
+            value: function saveOwnFile(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveOwnFile must type of object.');
+                }
+                return this._invoke('saveOwnFile', data);
+            }
+        }, {
+            key: 'deleteOwnFile',
+            value: function deleteOwnFile(own_file_id) {
+                if ((typeof own_file_id === 'undefined' ? 'undefined' : _typeof(own_file_id)) === "object") {
+                    own_file_id = own_file_id._id;
+                }
+                if (typeof own_file_id !== "string") {
+                    throw Error('Argument 1 passed to deleteOwnFile must type of string.');
+                }
+                return this._invoke('deleteOwnFile', { 'id': own_file_id });
+            }
+        }, {
+            key: 'getFileManagerDocs',
+            value: function getFileManagerDocs() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getFileManagerDocs must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getFileManagerDocs must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getFileManagerDocs must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getFileManagerDocs must type of number.');
+                }
+                return this._invoke('getFileManagerDocs', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getFileManagerDoc',
+            value: function getFileManagerDoc(filemanager_id) {
+                if (typeof filemanager_id !== "string") {
+                    throw Error('Argument 1 passed to getFileManagerDoc must type of string.');
+                }
+                return this._invoke('getFileManagerDoc', { 'id': filemanager_id });
+            }
+        }, {
+            key: 'getLinkGroups',
+            value: function getLinkGroups() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getLinkGroups must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getLinkGroups must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getLinkGroups must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getLinkGroups must type of number.');
+                }
+                return this._invoke('getLinkGroups', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getLinkGroup',
+            value: function getLinkGroup(link_group_id) {
+                if (typeof link_group_id !== "string") {
+                    throw Error('Argument 1 passed to getLinkGroup must type of string.');
+                }
+                return this._invoke('getLinkGroup', { 'id': link_group_id });
+            }
+        }, {
+            key: 'getLinks',
+            value: function getLinks() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getLinks must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getLinks must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getLinks must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getLinks must type of number.');
+                }
+                return this._invoke('getLinks', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getLink',
+            value: function getLink(link_id) {
+                if (typeof link_id !== "string") {
+                    throw Error('Argument 1 passed to getLink must type of string.');
+                }
+                return this._invoke('getLink', { 'id': link_id });
+            }
+        }, {
+            key: 'getTags',
+            value: function getTags() {
+                var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+                var order = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+                var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+                var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+                if (typeof filter !== "string") {
+                    throw Error('Argument 1 passed to getTags must type of array.');
+                }
+                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                    throw Error('Argument 2 passed to getTags must type of array.');
+                }
+                if (typeof page !== "string") {
+                    throw Error('Argument 3 passed to getTags must type of number.');
+                }
+                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                    throw Error('Argument 4 passed to getTags must type of number.');
+                }
+                return this._invoke('getTags', {
+                    'filter': filter || this.options.defaultFilter,
+                    'order': order || this.options.defaultOrder,
+                    'page': page || this.options.defaultPage,
+                    'limit': limit || this.options.defaultLimit
+                });
+            }
+        }, {
+            key: 'getTag',
+            value: function getTag(tag_id) {
+                if (typeof tag_id !== "string") {
+                    throw Error('Argument 1 passed to getTag must type of string.');
+                }
+                return this._invoke('getTag', { 'id': tag_id });
+            }
+        }, {
+            key: 'saveTag',
+            value: function saveTag(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveTag must type of object.');
+                }
+                return this._invoke('saveTag', data);
+            }
+        }, {
+            key: 'deleteTag',
+            value: function deleteTag(tag_id) {
+                if ((typeof tag_id === 'undefined' ? 'undefined' : _typeof(tag_id)) === "object") {
+                    tag_id = tag_id._id;
+                }
+                if (typeof tag_id !== "string") {
+                    throw Error('Argument 1 passed to deleteTag must type of string.');
+                }
+                return this._invoke('deleteTag', { 'id': tag_id });
+            }
+        }, {
+            key: 'getAttachment',
+            value: function getAttachment(attachment_id) {
+                if (typeof attachment_id !== "string") {
+                    throw Error('Argument 1 passed to getAttachment must type of string.');
+                }
+                return this._invoke('getAttachment', { 'id': attachment_id });
+            }
+        }, {
+            key: 'saveAttachment',
+            value: function saveAttachment(data) {
+                if ((typeof data === 'undefined' ? 'undefined' : _typeof(data)) !== "object") {
+                    throw Error('Argument 1 passed to saveAttachment must type of object.');
+                }
+                return this._invoke('saveAttachment', data);
+            }
+        }, {
+            key: 'uuid',
+            value: function uuid() {
+                var prefix = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+                return (!!prefix ? prefix + '_' : '') + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0;
+                    var v = c === 'x' ? r : r & 0x3 | 0x8;
+                    return v.toString(16);
+                });
+            }
+        }]);
+
+        return mySALESGUIDE;
+    }();
+
+    Object.defineProperties(mySALESGUIDE, {
+        'VERSION': { value: '2.0.0', writeable: false, configurable: false, enumerable: true },
+        'ERROR_API_UNKNOWN': { value: 10001, writeable: false, configurable: false, enumerable: true },
+        'ERROR_API_TIMEOUT': { value: 10002, writeable: false, configurable: false, enumerable: true },
+        'ERROR_API_OFFLINE': { value: 10003, writeable: false, configurable: false, enumerable: true },
+        'ORDER_ASC': { value: 'asc', writeable: false, configurable: false, enumerable: true },
+        'ORDER_DESC': { value: 'desc', writeable: false, configurable: false, enumerable: true }
+    });
+
+    exports.default = mySALESGUIDE;
+    module.exports = exports['default'];
+});

@@ -1,23 +1,21 @@
 const gulp = require('gulp');
-const uglify = require('gulp-uglify');
 const watch = require('gulp-watch');
 const babel = require('gulp-babel');
 
 gulp.task('prod', () => {
     gulp.src('src/mySALESGUIDE.js')
-        .pipe(babel({presets: ['es2015']}))
-        .pipe(uglify())
-        .pipe(gulp.dest('dist'));
-});
-
-gulp.task('dev', () => {
-    gulp.src('src/mySALESGUIDE.js')
-        .pipe(babel({presets: ['es2015']}))
+        .pipe(babel({
+            "presets": ["env"],
+            "plugins": [
+                "add-module-exports",
+                "transform-es2015-modules-umd"
+            ]
+        }))
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('watch', function() {
-    gulp.watch('src/*.js', ['dev']);
+    gulp.watch('src/*.js', ['prod']);
 });
 
 gulp.task('default', ['prod']);

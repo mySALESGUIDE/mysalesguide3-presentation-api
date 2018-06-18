@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mySALESGUIDE 3 App Faker</title>
+    <style>
+        html, body, iframe {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        window.addEventListener('message', function (event) {
+            if (typeof event.data !== "object") {
+                return;
+            }
+            if (typeof event.data.callback_identifier !== "string") {
+                return;
+            }
+
+            var result = {
+                callback_success: false,
+                callback_identifier: event.data.callback_identifier,
+                callback_arguments: []
+            };
+            switch (event.data.action) {
+                case "checkAvailable":
+                    result.callback_success = true;
+                    break;
+                case "getInformation":
+                    result.callback_success = true;
+                    result.callback_arguments.push({
+                        version: '3.0.0-fake'
+                    });
+                    break;
+                case "openShortlink":
+                case "openPopup":
+                case "openBrowser":
+                    window.open(event.data.url);
+                    result.callback_success = true;
+                    break;
+                case "openPdfViewer":
+                case "getUsers":
+                case "getUser":
+                case "getMe":
+                case "getAccessToken":
+                default:
+                    window.console.log('Unknown Message:', event.data);
+            }
+            event.source.postMessage(result, event.origin);
+        }, false);
+    </script>
+</head>
+<body>
+<iframe src="./presentation/index.html?config=/example/presentation/config.json"></iframe>
+</body>
+</html>

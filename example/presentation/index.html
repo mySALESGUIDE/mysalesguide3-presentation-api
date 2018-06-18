@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mySALESGUIDE 3 Presentation Test</title>
+    <script src="../../dist/mySALESGUIDE.js"></script>
+</head>
+<body>
+    <h1>Test</h1>
+    <script>
+        window.initPresentation = function(information) {
+            window.console.log('Presentation API is online',information);
+        };
+        window.msg = new mySALESGUIDE(window,{defaultTimeout: 100000, defaultLimit: 100});
+    </script>
+    <input type="button" value="openShortlink" onclick="window.msg.openShortLink('https://www.google.de');">
+    <input type="button" value="openPopup" onclick="window.msg.openPopup('https://www.google.de', 'Google');">
+    <input type="button" value="openBrowser" onclick="window.msg.openBrowser('https://www.google.de', 'Google');">
+</body>
+</html>
