@@ -14,8 +14,31 @@ gulp.task('prod', () => {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('dev-fakeapp', () => {
+    gulp.src('src/fakeapp.js')
+        .pipe(babel({
+            "presets": ["env"],
+            "plugins": [
+                "add-module-exports",
+                "transform-es2015-modules-umd"
+            ]
+        }))
+        .pipe(gulp.dest('example'));
+    gulp.src('src/inc/*.js')
+        .pipe(babel({
+            "presets": ["env"],
+            "plugins": [
+                "add-module-exports",
+                "transform-es2015-modules-umd"
+            ]
+        }))
+        .pipe(gulp.dest('example/inc'));
+});
+
+gulp.task('dev', ['dev-fakeapp', 'prod']);
+
 gulp.task('watch', function() {
-    gulp.watch('src/*.js', ['prod']);
+    gulp.watch('src/**/*.js', ['dev']);
 });
 
 gulp.task('default', ['prod']);

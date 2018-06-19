@@ -162,7 +162,7 @@ class mySALESGUIDE {
         if (typeof close_presentation !== "boolean") {
             throw Error('Argument 2 passed to openShortLink must type of boolean.');
         }
-        return this._invoke('openShortlink', {
+        return this._invoke('openShortLink', {
             'url': url,
             'close_presentation': close_presentation
         });
@@ -181,7 +181,7 @@ class mySALESGUIDE {
         if (typeof title !== "string") {
             throw Error('Argument 2 passed to openPopup must type of string.');
         }
-        return this._invoke('openShortlink', {
+        return this._invoke('openShortLink', {
             'url': url,
             'title': title
         });
@@ -244,16 +244,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getUsers(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getUsers must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getUsers must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getUsers must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getUsers must type of number.');
         }
         return this._invoke(
@@ -307,16 +307,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getGroups(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getGroups must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getGroups must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getGroups must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getGroups must type of number.');
         }
         return this._invoke(
@@ -351,16 +351,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getPermissions(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getPermissions must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getPermissions must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getPermissions must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getPermissions must type of number.');
         }
         return this._invoke(
@@ -395,16 +395,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLanguages(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getLanguages must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getLanguages must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getLanguages must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getLanguages must type of number.');
         }
         return this._invoke(
@@ -439,16 +439,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCountries(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCountries must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCountries must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCountries must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCountries must type of number.');
         }
         return this._invoke(
@@ -483,16 +483,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmIndustries(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmIndustries must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmIndustries must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmIndustries must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmIndustries must type of number.');
         }
         return this._invoke(
@@ -527,16 +527,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmPriorities(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmPriorities must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmPriorities must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmPriorities must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmPriorities must type of number.');
         }
         return this._invoke(
@@ -571,16 +571,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmSources(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmSources must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmSources must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmSources must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmSources must type of number.');
         }
         return this._invoke(
@@ -615,16 +615,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanies(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmCompanies must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmCompanies must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmCompanies must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmCompanies must type of number.');
         }
         return this._invoke(
@@ -686,16 +686,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanyNotes(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmCompanyNotes must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmCompanyNotes must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmCompanyNotes must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmCompanyNotes must type of number.');
         }
         return this._invoke(
@@ -757,16 +757,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanyFiles(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmCompanyFiles must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmCompanyFiles must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmCompanyFiles must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmCompanyFiles must type of number.');
         }
         return this._invoke(
@@ -835,16 +835,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContacts(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmContacts must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmContacts must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmContacts must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmContacts must type of number.');
         }
         return this._invoke(
@@ -906,16 +906,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContactNotes(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmContactNotes must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmContactNotes must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmContactNotes must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmContactNotes must type of number.');
         }
         return this._invoke(
@@ -977,16 +977,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContactFiles(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCrmContactFiles must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmContactFiles must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCrmContactFiles must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCrmContactFiles must type of number.');
         }
         return this._invoke(
@@ -1048,16 +1048,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCustomDataDocs(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getCustomDataDocs must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCustomDataDocs must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getCustomDataDocs must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getCustomDataDocs must type of number.');
         }
         return this._invoke(
@@ -1137,16 +1137,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getOwnFiles(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getOwnFiles must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getOwnFiles must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getOwnFiles must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getOwnFiles must type of number.');
         }
         return this._invoke(
@@ -1208,16 +1208,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getFileManagerDocs(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getFileManagerDocs must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getFileManagerDocs must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getFileManagerDocs must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getFileManagerDocs must type of number.');
         }
         return this._invoke(
@@ -1252,16 +1252,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLinkGroups(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getLinkGroups must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getLinkGroups must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getLinkGroups must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getLinkGroups must type of number.');
         }
         return this._invoke(
@@ -1296,16 +1296,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLinks(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getLinks must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getLinks must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getLinks must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getLinks must type of number.');
         }
         return this._invoke(
@@ -1340,16 +1340,16 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getTags(filter = [], order = [], page = 0, limit = 0) {
-        if (typeof filter !== "string") {
+        if (!Array.isArray(filter)) {
             throw Error('Argument 1 passed to getTags must type of array.');
         }
-        if (typeof order !== "object") {
+        if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getTags must type of array.');
         }
-        if (typeof page !== "string") {
+        if (!Number.isInteger(page)) {
             throw Error('Argument 3 passed to getTags must type of number.');
         }
-        if (typeof limit !== "object") {
+        if (!Number.isInteger(limit)) {
             throw Error('Argument 4 passed to getTags must type of number.');
         }
         return this._invoke(

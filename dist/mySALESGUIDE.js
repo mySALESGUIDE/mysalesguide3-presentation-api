@@ -208,7 +208,7 @@
                 if (typeof close_presentation !== "boolean") {
                     throw Error('Argument 2 passed to openShortLink must type of boolean.');
                 }
-                return this._invoke('openShortlink', {
+                return this._invoke('openShortLink', {
                     'url': url,
                     'close_presentation': close_presentation
                 });
@@ -222,7 +222,7 @@
                 if (typeof title !== "string") {
                     throw Error('Argument 2 passed to openPopup must type of string.');
                 }
-                return this._invoke('openShortlink', {
+                return this._invoke('openShortLink', {
                     'url': url,
                     'title': title
                 });
@@ -267,16 +267,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getUsers must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getUsers must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getUsers must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getUsers must type of number.');
                 }
                 return this._invoke('getUsers', {
@@ -315,16 +315,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getGroups must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getGroups must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getGroups must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getGroups must type of number.');
                 }
                 return this._invoke('getGroups', {
@@ -350,16 +350,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getPermissions must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getPermissions must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getPermissions must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getPermissions must type of number.');
                 }
                 return this._invoke('getPermissions', {
@@ -385,16 +385,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getLanguages must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getLanguages must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getLanguages must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getLanguages must type of number.');
                 }
                 return this._invoke('getLanguages', {
@@ -420,16 +420,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCountries must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCountries must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCountries must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCountries must type of number.');
                 }
                 return this._invoke('getCountries', {
@@ -455,16 +455,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmIndustries must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmIndustries must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmIndustries must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmIndustries must type of number.');
                 }
                 return this._invoke('getCrmIndustries', {
@@ -490,16 +490,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmPriorities must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmPriorities must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmPriorities must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmPriorities must type of number.');
                 }
                 return this._invoke('getCrmPriorities', {
@@ -525,16 +525,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmSources must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmSources must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmSources must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmSources must type of number.');
                 }
                 return this._invoke('getCrmSources', {
@@ -560,16 +560,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmCompanies must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmCompanies must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmCompanies must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmCompanies must type of number.');
                 }
                 return this._invoke('getCrmCompanies', {
@@ -614,16 +614,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmCompanyNotes must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmCompanyNotes must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmCompanyNotes must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmCompanyNotes must type of number.');
                 }
                 return this._invoke('getCrmCompanyNotes', {
@@ -668,16 +668,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmCompanyFiles must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmCompanyFiles must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmCompanyFiles must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmCompanyFiles must type of number.');
                 }
                 return this._invoke('getCrmCompanyFiles', {
@@ -727,16 +727,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmContacts must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmContacts must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmContacts must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmContacts must type of number.');
                 }
                 return this._invoke('getCrmContacts', {
@@ -781,16 +781,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmContactNotes must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmContactNotes must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmContactNotes must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmContactNotes must type of number.');
                 }
                 return this._invoke('getCrmContactNotes', {
@@ -835,16 +835,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCrmContactFiles must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCrmContactFiles must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCrmContactFiles must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCrmContactFiles must type of number.');
                 }
                 return this._invoke('getCrmContactFiles', {
@@ -889,16 +889,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getCustomDataDocs must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getCustomDataDocs must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getCustomDataDocs must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getCustomDataDocs must type of number.');
                 }
                 return this._invoke('getCustomDataDocs', {
@@ -960,16 +960,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getOwnFiles must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getOwnFiles must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getOwnFiles must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getOwnFiles must type of number.');
                 }
                 return this._invoke('getOwnFiles', {
@@ -1014,16 +1014,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getFileManagerDocs must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getFileManagerDocs must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getFileManagerDocs must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getFileManagerDocs must type of number.');
                 }
                 return this._invoke('getFileManagerDocs', {
@@ -1049,16 +1049,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getLinkGroups must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getLinkGroups must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getLinkGroups must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getLinkGroups must type of number.');
                 }
                 return this._invoke('getLinkGroups', {
@@ -1084,16 +1084,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getLinks must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getLinks must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getLinks must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getLinks must type of number.');
                 }
                 return this._invoke('getLinks', {
@@ -1119,16 +1119,16 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "string") {
+                if (!Array.isArray(filter)) {
                     throw Error('Argument 1 passed to getTags must type of array.');
                 }
-                if ((typeof order === 'undefined' ? 'undefined' : _typeof(order)) !== "object") {
+                if (!Array.isArray(order)) {
                     throw Error('Argument 2 passed to getTags must type of array.');
                 }
-                if (typeof page !== "string") {
+                if (!Number.isInteger(page)) {
                     throw Error('Argument 3 passed to getTags must type of number.');
                 }
-                if ((typeof limit === 'undefined' ? 'undefined' : _typeof(limit)) !== "object") {
+                if (!Number.isInteger(limit)) {
                     throw Error('Argument 4 passed to getTags must type of number.');
                 }
                 return this._invoke('getTags', {

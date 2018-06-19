@@ -12,8 +12,11 @@
         };
         window.msg = new mySALESGUIDE(window,{defaultTimeout: 100000, defaultLimit: 100});
     </script>
-    <input type="button" value="openShortlink" onclick="window.msg.openShortLink('https://www.google.de');">
+    <input type="button" value="openShortLink" onclick="window.msg.openShortLink('https://www.google.de');">
     <input type="button" value="openPopup" onclick="window.msg.openPopup('https://www.google.de', 'Google');">
     <input type="button" value="openBrowser" onclick="window.msg.openBrowser('https://www.google.de', 'Google');">
+    <input type="button" value="getMe" onclick="window.msg.getMe().then(function(me){window.console.log(me);})">
+    <input type="button" value="getUsers" onclick="window.msg.getUsers().then(function(users,paging){window.console.log(users,paging);})">
+    <input type="button" value="getUser" onclick="window.msg.getUser('users::5b28bbb0b01e3').then(function(user){window.console.log(user);})">
 </body>
 </html>
