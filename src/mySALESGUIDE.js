@@ -7,6 +7,7 @@ class mySALESGUIDE {
      * @param {Object} options
      */
     constructor(window, options = {}) {
+        this.version = 2;
         this.online = true;
         this.callbacks = [];
         this.window = window;
@@ -105,6 +106,7 @@ class mySALESGUIDE {
                 let message = parameters || {};
                 message.action = method;
                 message.callback_identifier = callbackId;
+                message.js_api_version = this.version;
                 message = JSON.parse(JSON.stringify(message)); // check json data
                 this._sendMessage(message);
             } catch (e) {
