@@ -7,13 +7,16 @@ class mySALESGUIDE {
      * @param {Object} options
      */
     constructor(window, options = {}) {
-        this.version = 2;
         this.online = true;
         this.callbacks = [];
         this.window = window;
         this.options = {
             defaultTimeout: 300000,
-            defaultFilter: [],
+            defaultFilter: function(doc, emit) {
+                if (typeof(doc.deleted_at) !== "undefined" && doc.deleted_at === 0) {
+                    emit(doc);
+                }
+            },
             defaultOrder: [['created_at', this.ORDER_ASC]],
             defaultPage: 1,
             defaultLimit: 25,
@@ -90,7 +93,7 @@ class mySALESGUIDE {
      */
     _invoke(method, parameters = {}, timeout = 0) {
         return new Promise((resolve, reject) => {
-            let callbackId = this.uuid('callback');
+            let callbackId = this.uuid();
             this.callbacks[callbackId] = {
                 'success': resolve,
                 'error': reject,
@@ -106,7 +109,7 @@ class mySALESGUIDE {
                 let message = parameters || {};
                 message.action = method;
                 message.callback_identifier = callbackId;
-                message.js_api_version = this.version;
+                message.js_api_version = this.VERSION;
                 message = JSON.parse(JSON.stringify(message)); // check json data
                 this._sendMessage(message);
             } catch (e) {
@@ -238,16 +241,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getUsers(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getUsers must type of array.');
+    getUsers(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getUsers must type of array.');
@@ -261,7 +264,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getUsers',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -301,16 +304,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getGroups(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getGroups must type of array.');
+    getGroups(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getGroups must type of array.');
@@ -345,16 +348,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getPermissions(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getPermissions must type of array.');
+    getPermissions(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getPermissions must type of array.');
@@ -389,16 +392,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getLanguages(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getLanguages must type of array.');
+    getLanguages(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getLanguages must type of array.');
@@ -433,16 +436,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCountries(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCountries must type of array.');
+    getCountries(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCountries must type of array.');
@@ -477,16 +480,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmIndustries(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmIndustries must type of array.');
+    getCrmIndustries(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmIndustries must type of array.');
@@ -521,16 +524,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmPriorities(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmPriorities must type of array.');
+    getCrmPriorities(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmPriorities must type of array.');
@@ -565,16 +568,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmSources(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmSources must type of array.');
+    getCrmSources(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmSources must type of array.');
@@ -609,16 +612,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmCompanies(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmCompanies must type of array.');
+    getCrmCompanies(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmCompanies must type of array.');
@@ -680,16 +683,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmCompanyNotes(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmCompanyNotes must type of array.');
+    getCrmCompanyNotes(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmCompanyNotes must type of array.');
@@ -751,16 +754,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmCompanyFiles(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmCompanyFiles must type of array.');
+    getCrmCompanyFiles(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmCompanyFiles must type of array.');
@@ -829,16 +832,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmContacts(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmContacts must type of array.');
+    getCrmContacts(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmContacts must type of array.');
@@ -900,16 +903,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmContactNotes(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmContactNotes must type of array.');
+    getCrmContactNotes(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmContactNotes must type of array.');
@@ -971,16 +974,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmContactFiles(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCrmContactFiles must type of array.');
+    getCrmContactFiles(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCrmContactFiles must type of array.');
@@ -1042,16 +1045,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getCustomDataDocs(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getCustomDataDocs must type of array.');
+    getCustomDataDocs(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getCustomDataDocs must type of array.');
@@ -1131,16 +1134,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getOwnFiles(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getOwnFiles must type of array.');
+    getOwnFiles(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getOwnFiles must type of array.');
@@ -1202,16 +1205,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getFileManagerDocs(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getFileManagerDocs must type of array.');
+    getFileManagerDocs(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getFileManagerDocs must type of array.');
@@ -1246,16 +1249,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getLinkGroups(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getLinkGroups must type of array.');
+    getLinkGroups(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getLinkGroups must type of array.');
@@ -1290,16 +1293,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getLinks(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getLinks must type of array.');
+    getLinks(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getLinks must type of array.');
@@ -1334,16 +1337,16 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {Array} filter
+     * @param {Function|null} filter
      * @param {Array} order
      * @param {Number} page
      * @param {Number} limit
      * @return {Promise}
      * @throws {Error}
      */
-    getTags(filter = [], order = [], page = 0, limit = 0) {
-        if (!Array.isArray(filter)) {
-            throw Error('Argument 1 passed to getTags must type of array.');
+    getTags(filter = null, order = [], page = 0, limit = 0) {
+        if (typeof(filter) !== "function") {
+            filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
             throw Error('Argument 2 passed to getTags must type of array.');
