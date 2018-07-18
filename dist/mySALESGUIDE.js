@@ -333,7 +333,7 @@
                     throw Error('Argument 4 passed to getGroups must type of number.');
                 }
                 return this._invoke('getGroups', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -368,7 +368,7 @@
                     throw Error('Argument 4 passed to getPermissions must type of number.');
                 }
                 return this._invoke('getPermissions', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -403,7 +403,7 @@
                     throw Error('Argument 4 passed to getLanguages must type of number.');
                 }
                 return this._invoke('getLanguages', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -438,7 +438,7 @@
                     throw Error('Argument 4 passed to getCountries must type of number.');
                 }
                 return this._invoke('getCountries', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -473,7 +473,7 @@
                     throw Error('Argument 4 passed to getCrmIndustries must type of number.');
                 }
                 return this._invoke('getCrmIndustries', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -508,7 +508,7 @@
                     throw Error('Argument 4 passed to getCrmPriorities must type of number.');
                 }
                 return this._invoke('getCrmPriorities', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -543,7 +543,7 @@
                     throw Error('Argument 4 passed to getCrmSources must type of number.');
                 }
                 return this._invoke('getCrmSources', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -578,7 +578,7 @@
                     throw Error('Argument 4 passed to getCrmCompanies must type of number.');
                 }
                 return this._invoke('getCrmCompanies', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -632,7 +632,7 @@
                     throw Error('Argument 4 passed to getCrmCompanyNotes must type of number.');
                 }
                 return this._invoke('getCrmCompanyNotes', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -686,7 +686,7 @@
                     throw Error('Argument 4 passed to getCrmCompanyFiles must type of number.');
                 }
                 return this._invoke('getCrmCompanyFiles', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -722,7 +722,9 @@
         }, {
             key: "selectCrmContact",
             value: function selectCrmContact() {
-                return this._invoke('selectCrmContact', {});
+                var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+                return this._invoke('selectCrmContact', { 'type': type });
             }
         }, {
             key: "getCrmContacts",
@@ -745,7 +747,7 @@
                     throw Error('Argument 4 passed to getCrmContacts must type of number.');
                 }
                 return this._invoke('getCrmContacts', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -799,7 +801,7 @@
                     throw Error('Argument 4 passed to getCrmContactNotes must type of number.');
                 }
                 return this._invoke('getCrmContactNotes', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -853,7 +855,7 @@
                     throw Error('Argument 4 passed to getCrmContactFiles must type of number.');
                 }
                 return this._invoke('getCrmContactFiles', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -907,7 +909,7 @@
                     throw Error('Argument 4 passed to getCustomDataDocs must type of number.');
                 }
                 return this._invoke('getCustomDataDocs', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -978,7 +980,7 @@
                     throw Error('Argument 4 passed to getOwnFiles must type of number.');
                 }
                 return this._invoke('getOwnFiles', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1032,7 +1034,7 @@
                     throw Error('Argument 4 passed to getFileManagerDocs must type of number.');
                 }
                 return this._invoke('getFileManagerDocs', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1067,7 +1069,7 @@
                     throw Error('Argument 4 passed to getLinkGroups must type of number.');
                 }
                 return this._invoke('getLinkGroups', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1102,7 +1104,7 @@
                     throw Error('Argument 4 passed to getLinks must type of number.');
                 }
                 return this._invoke('getLinks', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1137,7 +1139,7 @@
                     throw Error('Argument 4 passed to getTags must type of number.');
                 }
                 return this._invoke('getTags', {
-                    'filter': filter || this.options.defaultFilter,
+                    'filter': filter.toString(),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit

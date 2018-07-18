@@ -327,7 +327,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getGroups',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -371,7 +371,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getPermissions',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -415,7 +415,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getLanguages',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -459,7 +459,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCountries',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -503,7 +503,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmIndustries',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -547,7 +547,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmPriorities',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -591,7 +591,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmSources',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -635,7 +635,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmCompanies',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -706,7 +706,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmCompanyNotes',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -777,7 +777,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmCompanyFiles',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -825,10 +825,11 @@ class mySALESGUIDE {
     }
 
     /**
+     * @param {String|null} type
      * @return {Promise}
      */
-    selectCrmContact() {
-        return this._invoke('selectCrmContact', {});
+    selectCrmContact(type = null) {
+        return this._invoke('selectCrmContact', {'type': type});
     }
 
     /**
@@ -855,7 +856,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmContacts',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -926,7 +927,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmContactNotes',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -997,7 +998,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmContactFiles',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1068,7 +1069,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCustomDataDocs',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1157,7 +1158,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getOwnFiles',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1228,7 +1229,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getFileManagerDocs',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1272,7 +1273,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getLinkGroups',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1316,7 +1317,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getLinks',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1360,7 +1361,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getTags',
             {
-                'filter': filter || this.options.defaultFilter,
+                'filter': filter.toString(),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
