@@ -1443,6 +1443,36 @@ class mySALESGUIDE {
         }));
     }
 
+    /**
+     * @see https://stackoverflow.com/questions/6832596/how-to-compare-software-version-number-using-js-only-number
+     * @param {String} v1
+     * @param {String} v2
+     * @returns {*}
+     */
+    version_compare(v1, v2) {
+        var v1Array = v1.split('.');
+        var v2Array = v2.split('.');
+        for (var i=0; i<v1Array.length; ++i) {
+            var a = v1Array[i];
+            var b = v2Array[i];
+            var aInt = parseInt(a, 10);
+            var bInt = parseInt(b, 10);
+            if (aInt === bInt) {
+                var aLex = a.substr((""+aInt).length);
+                var bLex = b.substr((""+bInt).length);
+                if (aLex === '' && bLex !== '') return 1;
+                if (aLex !== '' && bLex === '') return -1;
+                if (aLex !== '' && bLex !== '') return aLex > bLex ? 1 : -1;
+                continue;
+            } else if (aInt > bInt) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
 }
 
 Object.defineProperties(mySALESGUIDE, {
