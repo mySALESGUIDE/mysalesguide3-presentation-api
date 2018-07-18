@@ -1179,6 +1179,17 @@
                 return this._invoke('getAttachment', { 'id': attachment_id });
             }
         }, {
+            key: "getAttachmentContent",
+            value: function getAttachmentContent(attachment_id) {
+                if ((typeof attachment_id === "undefined" ? "undefined" : _typeof(attachment_id)) === "object") {
+                    attachment_id = attachment_id._id;
+                }
+                if (typeof attachment_id !== "string") {
+                    throw Error('Argument 1 passed to getAttachmentContent must type of string.');
+                }
+                return this._invoke('getAttachmentContent', { 'id': attachment_id });
+            }
+        }, {
             key: "saveAttachment",
             value: function saveAttachment(data) {
                 if ((typeof data === "undefined" ? "undefined" : _typeof(data)) !== "object") {

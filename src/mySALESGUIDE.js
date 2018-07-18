@@ -1420,6 +1420,21 @@ class mySALESGUIDE {
     }
 
     /**
+     * @param {String|Object} attachment_id
+     * @returns {Promise}
+     */
+    getAttachmentContent(attachment_id)
+    {
+        if (typeof attachment_id === "object") {
+            attachment_id = attachment_id._id;
+        }
+        if (typeof attachment_id !== "string") {
+            throw Error('Argument 1 passed to getAttachmentContent must type of string.');
+        }
+        return this._invoke('getAttachmentContent', {'id': attachment_id});
+    }
+
+    /**
      * @param {Object} data
      * @return {Promise}
      * @throws {Error}
