@@ -28,5 +28,5 @@ window.addEventListener('message', function (event) {
         throw new Error('Result.callback_arguments must be and array!');
     }
     window.console.log('  - Result',result);
-    event.source.postMessage(result, event.origin);
+    event.source.postMessage(result, '*');
 }, false);

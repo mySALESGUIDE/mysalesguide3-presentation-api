@@ -249,7 +249,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getUsers(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -264,7 +264,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getUsers',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -312,7 +312,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getGroups(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -327,7 +327,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getGroups',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -356,7 +356,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getPermissions(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -371,7 +371,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getPermissions',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -400,7 +400,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLanguages(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -415,7 +415,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getLanguages',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -444,7 +444,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCountries(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -459,7 +459,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCountries',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -488,7 +488,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmIndustries(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -503,7 +503,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmIndustries',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -532,7 +532,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmPriorities(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -547,7 +547,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmPriorities',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -576,7 +576,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmSources(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -591,7 +591,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmSources',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -620,7 +620,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanies(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -635,7 +635,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmCompanies',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -691,7 +691,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanyNotes(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -706,7 +706,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmCompanyNotes',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -762,7 +762,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanyFiles(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -777,7 +777,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmCompanyFiles',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -841,7 +841,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContacts(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -856,7 +856,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmContacts',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -912,7 +912,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContactNotes(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -927,7 +927,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmContactNotes',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -983,7 +983,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContactFiles(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -998,7 +998,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCrmContactFiles',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1054,7 +1054,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCustomDataDocs(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1069,7 +1069,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getCustomDataDocs',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1143,7 +1143,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getOwnFiles(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1158,7 +1158,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getOwnFiles',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1214,7 +1214,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getFileManagerDocs(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1229,7 +1229,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getFileManagerDocs',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1258,7 +1258,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLinkGroups(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1273,7 +1273,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getLinkGroups',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1302,7 +1302,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLinks(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1317,7 +1317,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getLinks',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,
@@ -1346,7 +1346,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getTags(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function") {
+        if (typeof(filter) !== "function" || (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1361,7 +1361,7 @@ class mySALESGUIDE {
         return this._invoke(
             'getTags',
             {
-                'filter': filter.toString(),
+                'filter': filter.toString().replace(' defaultFilter',''),
                 'order': order || this.options.defaultOrder,
                 'page': page || this.options.defaultPage,
                 'limit': limit || this.options.defaultLimit,

@@ -12,15 +12,25 @@ class Server {
         return {
             callback_success: true,
             callback_arguments: [
-                {version: '3.0.0-fake'}
+                {
+                    version: '3.0.0-fake',
+                    device: navigator.userAgent,
+                    os: navigator.platform,
+                    short_url: 'msgapp://',
+                    org_short: this.database.clients[Object.keys(this.database.clients)[0]].orgShort,
+                    language: this.database.users[Object.keys(this.database.users)[0]].lang,
+                    connection: 'WLAN',
+                    server_url: '/api/v3',
+                    uuid: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+                }
             ]
         };
     }
     openShortLink(data) {
         if (data.close_presentation) {
-            window.location.href = data.url;
+            window.alert('Open in app view '+data.url+ ' and close presentation.');
         } else {
-            window.open(data.url);
+            window.alert('Open in app view: '+data.url);
         }
         return {callback_success: true};
     }
