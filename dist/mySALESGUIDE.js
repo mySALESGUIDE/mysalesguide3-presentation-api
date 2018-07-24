@@ -70,7 +70,7 @@
                         emit(doc);
                     }
                 },
-                defaultOrder: [['created_at', this.ORDER_ASC]],
+                defaultOrder: [['created_at', mySALESGUIDE.ORDER_ASC]],
                 defaultPage: 1,
                 defaultLimit: 25
             };
@@ -116,7 +116,7 @@
                 if (!!event.data.callback_success) {
                     this.callbacks[callbackId].success.apply(null, parameters);
                 } else {
-                    this.callbacks[callbackId].error.apply(null, ['mySALESGUIDE 3 API error', this.ERROR_API_UNKNOWN]);
+                    this.callbacks[callbackId].error.apply(null, ['mySALESGUIDE 3 API error', mySALESGUIDE.ERROR_API_UNKNOWN]);
                 }
                 delete this.callbacks[callbackId];
             }
@@ -127,7 +127,7 @@
                 var code = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10001;
 
                 message = !!message ? message : 'Timeout.';
-                code = !!code ? code : this.ERROR_API_TIMEOUT;
+                code = !!code ? code : mySALESGUIDE.ERROR_API_TIMEOUT;
                 if (!this.callbacks[callbackId]) {
                     return;
                 }
@@ -152,18 +152,18 @@
                         'success': resolve,
                         'error': reject,
                         'timeout': setTimeout(function () {
-                            this._cancel(callbackId, 'Timeout.', this.ERROR_API_TIMEOUT);
+                            this._cancel(callbackId, 'Timeout.', mySALESGUIDE.ERROR_API_TIMEOUT);
                         }.bind(_this2), !!timeout ? timeout : _this2.options.defaultTimeout)
                     };
                     try {
                         if (!_this2.online) {
-                            _this2._cancel(callbackId, 'mySALESGUIDE 3 API is offline.', _this2.ERROR_API_OFFLINE);
+                            _this2._cancel(callbackId, 'mySALESGUIDE 3 API is offline.', mySALESGUIDE.ERROR_API_OFFLINE);
                             return;
                         }
                         var message = parameters || {};
                         message.action = method;
                         message.callback_identifier = callbackId;
-                        message.js_api_version = _this2.VERSION;
+                        message.js_api_version = mySALESGUIDE.VERSION;
                         message = JSON.parse(JSON.stringify(message)); // check json data
                         _this2._sendMessage(message);
                     } catch (e) {
@@ -190,8 +190,7 @@
                 return new Promise(function (resolve, reject) {
                     if (!_this3.window.parent || _this3.window.parent === _this3.window) {
                         _this3.online = false;
-                        _this3.window.console.error('mySALESGUIDE 3 JS-API is not available.');
-                        reject('mySALESGUIDE 3 JS-API is not available.', _this3.ERROR_API_OFFLINE);
+                        reject('mySALESGUIDE 3 JS-API is not available.', mySALESGUIDE.ERROR_API_OFFLINE);
                         return;
                     }
                     _this3._invoke('checkAvailable', {}, 1000).then(function () {
@@ -227,7 +226,7 @@
                 if (typeof title !== "string") {
                     throw Error('Argument 2 passed to openPopup must type of string.');
                 }
-                return this._invoke('openShortLink', {
+                return this._invoke('openPopup', {
                     'url': url,
                     'title': title
                 });
@@ -272,7 +271,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -285,7 +284,7 @@
                     throw Error('Argument 4 passed to getUsers must type of number.');
                 }
                 return this._invoke('getUsers', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -320,7 +319,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -333,7 +332,7 @@
                     throw Error('Argument 4 passed to getGroups must type of number.');
                 }
                 return this._invoke('getGroups', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -355,7 +354,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -368,7 +367,7 @@
                     throw Error('Argument 4 passed to getPermissions must type of number.');
                 }
                 return this._invoke('getPermissions', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -390,7 +389,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -403,7 +402,7 @@
                     throw Error('Argument 4 passed to getLanguages must type of number.');
                 }
                 return this._invoke('getLanguages', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -425,7 +424,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -438,7 +437,7 @@
                     throw Error('Argument 4 passed to getCountries must type of number.');
                 }
                 return this._invoke('getCountries', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -460,7 +459,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -473,7 +472,7 @@
                     throw Error('Argument 4 passed to getCrmIndustries must type of number.');
                 }
                 return this._invoke('getCrmIndustries', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -495,7 +494,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -508,7 +507,7 @@
                     throw Error('Argument 4 passed to getCrmPriorities must type of number.');
                 }
                 return this._invoke('getCrmPriorities', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -530,7 +529,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -543,7 +542,7 @@
                     throw Error('Argument 4 passed to getCrmSources must type of number.');
                 }
                 return this._invoke('getCrmSources', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -565,7 +564,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -578,7 +577,7 @@
                     throw Error('Argument 4 passed to getCrmCompanies must type of number.');
                 }
                 return this._invoke('getCrmCompanies', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -619,7 +618,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -632,7 +631,7 @@
                     throw Error('Argument 4 passed to getCrmCompanyNotes must type of number.');
                 }
                 return this._invoke('getCrmCompanyNotes', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -673,7 +672,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -686,7 +685,7 @@
                     throw Error('Argument 4 passed to getCrmCompanyFiles must type of number.');
                 }
                 return this._invoke('getCrmCompanyFiles', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -734,7 +733,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -747,7 +746,7 @@
                     throw Error('Argument 4 passed to getCrmContacts must type of number.');
                 }
                 return this._invoke('getCrmContacts', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -788,7 +787,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -801,7 +800,7 @@
                     throw Error('Argument 4 passed to getCrmContactNotes must type of number.');
                 }
                 return this._invoke('getCrmContactNotes', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -842,7 +841,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -855,7 +854,7 @@
                     throw Error('Argument 4 passed to getCrmContactFiles must type of number.');
                 }
                 return this._invoke('getCrmContactFiles', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -896,7 +895,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -909,7 +908,7 @@
                     throw Error('Argument 4 passed to getCustomDataDocs must type of number.');
                 }
                 return this._invoke('getCustomDataDocs', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -967,7 +966,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -980,7 +979,7 @@
                     throw Error('Argument 4 passed to getOwnFiles must type of number.');
                 }
                 return this._invoke('getOwnFiles', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1021,7 +1020,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1034,7 +1033,7 @@
                     throw Error('Argument 4 passed to getFileManagerDocs must type of number.');
                 }
                 return this._invoke('getFileManagerDocs', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1056,7 +1055,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1069,7 +1068,7 @@
                     throw Error('Argument 4 passed to getLinkGroups must type of number.');
                 }
                 return this._invoke('getLinkGroups', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1091,7 +1090,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1104,7 +1103,7 @@
                     throw Error('Argument 4 passed to getLinks must type of number.');
                 }
                 return this._invoke('getLinks', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit
@@ -1126,7 +1125,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function") {
+                if (typeof filter !== "function" || typeof filter !== "string" && filter.indexOf('function(') !== 0) {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1139,7 +1138,7 @@
                     throw Error('Argument 4 passed to getTags must type of number.');
                 }
                 return this._invoke('getTags', {
-                    'filter': filter.toString(),
+                    'filter': filter.toString().replace(' defaultFilter', ''),
                     'order': order || this.options.defaultOrder,
                     'page': page || this.options.defaultPage,
                     'limit': limit || this.options.defaultLimit

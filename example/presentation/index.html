@@ -3,6 +3,7 @@
 <head>
     <title>mySALESGUIDE 3 Presentation Example</title>
     <script src="../../dist/mySALESGUIDE.js"></script>
+    <script src="./mySALESGUIDE.js"></script>
 </head>
 <body>
     <code id="request" style="position: fixed; display: block; top: 1vh; right: 1vw; width: 24.5vw; height: 48.5vh;border: 1px solid #000000;"></code>
@@ -35,142 +36,131 @@
     </script>
     <h1>mySALESGUIDE 3 Presentation Example</h1>
 
-    <h2>MSG3APP-652 JS-API/SDK: General functions</h2>
+    <h2>checkAvailable</h2>
+    <input type="button" value="checkAvailable" onclick="window.msg.checkAvailable();">
 
-    <h3>checkAvailable</h3>
-    <input type="button" value="checkAvailable" onclick="window.msg.checkAvailable().then(function(){window.console.log('checkAvailable()',true);});">
-
-    <h3>openShortLink</h3>
+    <h2>openShortLink</h2>
     <input type="button" value="openShortLink" onclick="window.msg.openShortLink(val('openShortLink1'),on('openShortLink2'));">
-    <input id="openShortLink1" type="text" value="filemanager/filemanager::5b28bbcb33404">
+    <input id="openShortLink1" type="text" value="filemanager">
     <input id="openShortLink2" type="checkbox">
 
-    <h3>openPopup</h3>
+    <h2>openPopup</h2>
     <input type="button" value="openPopup" onclick="window.msg.openPopup(val('openPopup1'), val('openPopup2'));">
     <input id="openPopup1" type="text" value="https://www.google.de">
     <input id="openPopup2" type="text" value="Google">
 
-    <h3>openBrowser</h3>
+    <h2>openBrowser</h2>
     <input type="button" value="openBrowser" onclick="window.msg.openBrowser(val('openBrowser1'), val('openBrowser2'));">
     <input id="openBrowser1" type="text" value="https://www.google.de">
     <input id="openBrowser2" type="text" value="Google">
 
-    <h3>openPdfViewer</h3>
+    <h2>openPdfViewer</h2>
     <input type="button" value="openPdfViewer" onclick="window.msg.openPdfViewer(val('openPdfViewer1'),JSON.parse(val('openPdfViewer2')));">
-    <input id="openPdfViewer1" type="text" value="attachment::5b28bbd016970">
+    <input id="openPdfViewer1" type="text" placeholder="attachment::">
     <textarea id="openPdfViewer2">{}</textarea>
 
-    <h3>getInformation</h3>
+    <h2>getInformation</h2>
     <input type="button" value="getInformation" onclick="window.msg.getInformation();">
 
-    <h2>MSG3APP-653 JS-API/SDK: User</h2>
-
-    <h3>getUsers</h3>
+    <h2>getUsers</h2>
     <input type="button" value="getUsers" onclick="window.msg.getUsers(val('getUsers1'),JSON.parse(val('getUsers2')),parseInt(val('getUsers3')),parseInt(val('getUsers4')));">
     <textarea id="getUsers1">function(doc){emit(doc);}</textarea>
     <textarea id="getUsers2">[["created_at", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getUsers3" value="1">
     <input type="number" min="1" step="1" id="getUsers4" value="100">
 
-    <h3>getUser</h3>
+    <h2>getUser</h2>
     <input type="button" value="getUser" onclick="window.msg.getUser(val('getUser1'));">
-    <input id="getUser1" type="text" value="users::5b28bbb0b01e3">
+    <input id="getUser1" type="text" placeholder="users::">
 
-    <h3>getMe</h3>
+    <h2>getMe</h2>
     <input type="button" value="getMe" onclick="window.msg.getMe();">
 
-    <h3>getAccessToken</h3>
+    <h2>getAccessToken</h2>
     <input type="button" value="getAccessToken" onclick="window.msg.getAccessToken(JSON.parse(val('getAccessToken1')))">
     <textarea id="getAccessToken1">["presentation"]</textarea>
 
-
-    <h2>MSG3APP-654 JS-API/SDK: Group (alias Roles)</h2>
-    <h3>getGroups</h3>
+    <h2>getGroups</h2>
     <input type="button" value="getGroups" onclick="window.msg.getGroups(val('getGroups1'),JSON.parse(val('getGroups2')),parseInt(val('getGroups3')),parseInt(val('getGroups4')));">
     <textarea id="getGroups1">function(doc){emit(doc);}</textarea>
     <textarea id="getGroups2">[["created_at", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getGroups3" value="1">
     <input type="number" min="1" step="1" id="getGroups4" value="100">
 
-    <h3>getGroup</h3>
+    <h2>getGroup</h2>
     <input type="button" value="getGroup" onclick="window.msg.getGroup(val('getGroup1'));">
-    <input id="getGroup1" type="text" value="roles::5b28bbafe5f03">
+    <input id="getGroup1" type="text" placeholder="roles::">
 
-    <h2>MSG3APP-661 JS-API/SDK: CRM Company</h2>
-    <h3>getCrmCompanies</h3>
+    <h2>getCrmCompanies</h2>
     <input type="button" value="getCrmCompanies" onclick="window.msg.getCrmCompanies(val('getCrmCompanies1'),JSON.parse(val('getCrmCompanies2')),parseInt(val('getCrmCompanies3')),parseInt(val('getCrmCompanies4')));">
     <textarea id="getCrmCompanies1">function(doc){emit(doc);}</textarea>
     <textarea id="getCrmCompanies2">[["created_at", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCrmCompanies3" value="1">
     <input type="number" min="1" step="1" id="getCrmCompanies4" value="100">
 
-    <h3>getCrmCompany</h3>
+    <h2>getCrmCompany</h2>
     <input type="button" value="getCrmCompany" onclick="window.msg.getCrmCompany(val('getCrmCompany1'));">
-    <input id="getCrmCompany1" type="text" value="crm_company::5b28bbb566e6f">
+    <input id="getCrmCompany1" type="text" placeholder="crm_company::">
 
-    <h3>saveCrmCompany</h3>
+    <h2>saveCrmCompany</h2>
     <input type="button" value="saveCrmCompany" onclick="window.msg.saveCrmCompany(JSON.parse(val('saveCrmCompany1')));">
     <textarea id="saveCrmCompany1">{}</textarea>
 
-    <h3>deleteCrmCompany</h3>
+    <h2>deleteCrmCompany</h2>
     <input type="button" value="deleteCrmCompany" onclick="window.msg.deleteCrmCompany(val('deleteCrmCompany1'));">
     <input id="deleteCrmCompany1" type="text" placeholder="crm_company::">
-
-    <h2>MSG3APP-663 JS-API/SDK: CRM Company Files</h2>
-    <h3>getCrmCompanyFiles</h3>
+    
+    <h2>getCrmCompanyFiles</h2>
     <input type="button" value="getCrmCompanyFiles" onclick="window.msg.getCrmCompanyFiles(val('getCrmCompanyFiles1'),JSON.parse(val('getCrmCompanyFiles2')),parseInt(val('getCrmCompanyFiles3')),parseInt(val('getCrmCompanyFiles4')));">
     <textarea id="getCrmCompanyFiles1">function(doc){emit(doc);}</textarea>
     <textarea id="getCrmCompanyFiles2">[["created_at", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCrmCompanyFiles3" value="1">
     <input type="number" min="1" step="1" id="getCrmCompanyFiles4" value="100">
 
-    <h3>getCrmCompanyFile</h3>
+    <h2>getCrmCompanyFile</h2>
     <input type="button" value="getCrmCompanyFile" onclick="window.msg.getCrmCompanyFile(val('getCrmCompanyFile1'));">
     <input id="getCrmCompanyFile1" type="text" placeholder="crm_company_files::">
 
-    <h3>saveCrmCompanyFile</h3>
+    <h2>saveCrmCompanyFile</h2>
     <input type="button" value="saveCrmCompanyFile" onclick="window.msg.saveCrmCompanyFile(JSON.parse(val('saveCrmCompanyFile1')));">
     <textarea id="saveCrmCompanyFile1">{}</textarea>
 
-    <h3>deleteCrmCompanyFile</h3>
+    <h2>deleteCrmCompanyFile</h2>
     <input type="button" value="deleteCrmCompanyFile" onclick="window.msg.deleteCrmCompanyFile(val('deleteCrmCompanyFile1'));">
     <input id="deleteCrmCompanyFile1" type="text" placeholder="crm_company_files::">
-
-    <h2>MSG3APP-667 JS-API/SDK: Custom Data</h2>
-    <h3>getCustomDataDocs</h3>
+    
+    <h2>getCustomDataDocs</h2>
     <input type="button" value="getCustomDataDocs" onclick="window.msg.getCustomDataDocs(val('getCustomDataDocs1'),JSON.parse(val('getCustomDataDocs2')),parseInt(val('getCustomDataDocs3')),parseInt(val('getCustomDataDocs4')));">
     <textarea id="getCustomDataDocs1">function(doc){emit(doc);}</textarea>
     <textarea id="getCustomDataDocs2">[["created_at", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCustomDataDocs3" value="1">
     <input type="number" min="1" step="1" id="getCustomDataDocs4" value="100">
 
-    <h3>getCustomDataDoc</h3>
+    <h2>getCustomDataDoc</h2>
     <input type="button" value="getCustomDataDoc" onclick="window.msg.getCustomDataDoc(val('getCustomDataDoc1'));">
     <input id="getCustomDataDoc1" type="text" placeholder="custom_data::">
 
-    <h3>saveCustomData</h3>
+    <h2>saveCustomData</h2>
     <input type="button" value="saveCustomData" onclick="window.msg.saveCustomData(JSON.parse(val('saveCustomData1')));">
     <textarea id="saveCustomData1">{}</textarea>
 
-    <h3>deleteCustomData</h3>
+    <h2>deleteCustomData</h2>
     <input type="button" value="deleteCustomData" onclick="window.msg.deleteCustomData(val('deleteCustomData1'));">
     <input id="deleteCustomData1" type="text" placeholder="custom_data::">
-
-    <h2>MSG3APP-673 JS-API/SDK: Attachment</h2>
-    <h3>getAttachment</h3>
+    
+    <h2>getAttachment</h2>
     <input type="button" value="getAttachment" onclick="window.msg.getAttachment(val('getAttachment1'));">
-    <input id="getAttachment1" type="text" value="attachment::5b28bbd016970">
+    <input id="getAttachment1" type="text" placeholder="attachment::">
 
-    <h3>getAttachmentContent</h3>
+    <h2>getAttachmentContent</h2>
     <input type="button" value="getAttachmentContent" onclick="window.msg.getAttachmentContent(val('getAttachmentContent1'));">
-    <input id="getAttachmentContent1" type="text" value="attachment::5b28bbd016970">
+    <input id="getAttachmentContent1" type="text" placeholder="attachment::">
 
-    <h3>saveAttachment</h3>
+    <h2>saveAttachment</h2>
     <input type="button" value="saveAttachment" onclick="window.msg.saveAttachment(JSON.parse(val('saveAttachment1')));">
     <textarea id="saveAttachment1">{}</textarea>
 
-    <h2>MSG3APP-698 JS-API/SDK: CRM General</h2>
-    <h3>selectCrmContact</h3>
+    <h2>selectCrmContact</h2>
     <input type="button" value="selectCrmContact" onclick="window.msg.selectCrmContact(val('selectCrmContact1'));">
     <select id="selectCrmContact1">
         <option value="">Company or Contact</option>

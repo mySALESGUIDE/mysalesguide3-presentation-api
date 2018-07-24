@@ -38,7 +38,7 @@ gulp.task('dev-fakeapp', () => {
 gulp.task('dev', ['dev-fakeapp', 'prod']);
 
 gulp.task('watch', function() {
-    gulp.watch('src/**/*.js', ['dev']);
+    gulp.watch(['src/*.js','src/**/*.js'], ['dev']);
 });
 
 gulp.task('default', ['prod']);

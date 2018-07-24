@@ -17,7 +17,7 @@ class mySALESGUIDE {
                     emit(doc);
                 }
             },
-            defaultOrder: [['created_at', this.ORDER_ASC]],
+            defaultOrder: [['created_at', mySALESGUIDE.ORDER_ASC]],
             defaultPage: 1,
             defaultLimit: 25,
         };
@@ -59,7 +59,7 @@ class mySALESGUIDE {
         if (!!event.data.callback_success) {
             this.callbacks[callbackId].success.apply(null, parameters);
         } else {
-            this.callbacks[callbackId].error.apply(null, ['mySALESGUIDE 3 API error', this.ERROR_API_UNKNOWN]);
+            this.callbacks[callbackId].error.apply(null, ['mySALESGUIDE 3 API error', mySALESGUIDE.ERROR_API_UNKNOWN]);
         }
         delete this.callbacks[callbackId];
     }
@@ -72,7 +72,7 @@ class mySALESGUIDE {
      */
     _cancel(callbackId, message = 'Unknown Error.', code = 10001) {
         message = !!message ? message : 'Timeout.';
-        code = !!code ? code : this.ERROR_API_TIMEOUT;
+        code = !!code ? code : mySALESGUIDE.ERROR_API_TIMEOUT;
         if (!this.callbacks[callbackId]) {
             return;
         }
@@ -98,18 +98,18 @@ class mySALESGUIDE {
                 'success': resolve,
                 'error': reject,
                 'timeout': setTimeout(function () {
-                    this._cancel(callbackId, 'Timeout.', this.ERROR_API_TIMEOUT);
+                    this._cancel(callbackId, 'Timeout.', mySALESGUIDE.ERROR_API_TIMEOUT);
                 }.bind(this), !!timeout ? timeout : this.options.defaultTimeout)
             };
             try {
                 if (!this.online) {
-                    this._cancel(callbackId, 'mySALESGUIDE 3 API is offline.', this.ERROR_API_OFFLINE);
+                    this._cancel(callbackId, 'mySALESGUIDE 3 API is offline.', mySALESGUIDE.ERROR_API_OFFLINE);
                     return;
                 }
                 let message = parameters || {};
                 message.action = method;
                 message.callback_identifier = callbackId;
-                message.js_api_version = this.VERSION;
+                message.js_api_version = mySALESGUIDE.VERSION;
                 message = JSON.parse(JSON.stringify(message)); // check json data
                 this._sendMessage(message);
             } catch (e) {
@@ -139,8 +139,7 @@ class mySALESGUIDE {
         return new Promise((resolve, reject) => {
             if (!this.window.parent || this.window.parent === this.window) {
                 this.online = false;
-                this.window.console.error('mySALESGUIDE 3 JS-API is not available.');
-                reject('mySALESGUIDE 3 JS-API is not available.', this.ERROR_API_OFFLINE);
+                reject('mySALESGUIDE 3 JS-API is not available.', mySALESGUIDE.ERROR_API_OFFLINE);
                 return;
             }
             this._invoke('checkAvailable', {}, 1000)
@@ -186,7 +185,7 @@ class mySALESGUIDE {
         if (typeof title !== "string") {
             throw Error('Argument 2 passed to openPopup must type of string.');
         }
-        return this._invoke('openShortLink', {
+        return this._invoke('openPopup', {
             'url': url,
             'title': title
         });
