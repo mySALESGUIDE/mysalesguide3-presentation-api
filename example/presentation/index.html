@@ -64,8 +64,8 @@
 
     <h2>getUsers</h2>
     <input type="button" value="getUsers" onclick="window.msg.getUsers(val('getUsers1'),JSON.parse(val('getUsers2')),parseInt(val('getUsers3')),parseInt(val('getUsers4')));">
-    <textarea id="getUsers1">function(doc){emit(doc);}</textarea>
-    <textarea id="getUsers2">[["created_at", "asc"]]</textarea>
+    <textarea id="getUsers1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getUsers2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getUsers3" value="1">
     <input type="number" min="1" step="1" id="getUsers4" value="100">
 
@@ -82,8 +82,8 @@
 
     <h2>getGroups</h2>
     <input type="button" value="getGroups" onclick="window.msg.getGroups(val('getGroups1'),JSON.parse(val('getGroups2')),parseInt(val('getGroups3')),parseInt(val('getGroups4')));">
-    <textarea id="getGroups1">function(doc){emit(doc);}</textarea>
-    <textarea id="getGroups2">[["created_at", "asc"]]</textarea>
+    <textarea id="getGroups1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getGroups2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getGroups3" value="1">
     <input type="number" min="1" step="1" id="getGroups4" value="100">
 
@@ -93,8 +93,8 @@
 
     <h2>getCrmCompanies</h2>
     <input type="button" value="getCrmCompanies" onclick="window.msg.getCrmCompanies(val('getCrmCompanies1'),JSON.parse(val('getCrmCompanies2')),parseInt(val('getCrmCompanies3')),parseInt(val('getCrmCompanies4')));">
-    <textarea id="getCrmCompanies1">function(doc){emit(doc);}</textarea>
-    <textarea id="getCrmCompanies2">[["created_at", "asc"]]</textarea>
+    <textarea id="getCrmCompanies1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getCrmCompanies2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCrmCompanies3" value="1">
     <input type="number" min="1" step="1" id="getCrmCompanies4" value="100">
 
@@ -112,8 +112,8 @@
     
     <h2>getCrmCompanyFiles</h2>
     <input type="button" value="getCrmCompanyFiles" onclick="window.msg.getCrmCompanyFiles(val('getCrmCompanyFiles1'),JSON.parse(val('getCrmCompanyFiles2')),parseInt(val('getCrmCompanyFiles3')),parseInt(val('getCrmCompanyFiles4')));">
-    <textarea id="getCrmCompanyFiles1">function(doc){emit(doc);}</textarea>
-    <textarea id="getCrmCompanyFiles2">[["created_at", "asc"]]</textarea>
+    <textarea id="getCrmCompanyFiles1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getCrmCompanyFiles2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCrmCompanyFiles3" value="1">
     <input type="number" min="1" step="1" id="getCrmCompanyFiles4" value="100">
 
@@ -131,8 +131,8 @@
     
     <h2>getCustomDataDocs</h2>
     <input type="button" value="getCustomDataDocs" onclick="window.msg.getCustomDataDocs(val('getCustomDataDocs1'),JSON.parse(val('getCustomDataDocs2')),parseInt(val('getCustomDataDocs3')),parseInt(val('getCustomDataDocs4')));">
-    <textarea id="getCustomDataDocs1">function(doc){emit(doc);}</textarea>
-    <textarea id="getCustomDataDocs2">[["created_at", "asc"]]</textarea>
+    <textarea id="getCustomDataDocs1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getCustomDataDocs2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCustomDataDocs3" value="1">
     <input type="number" min="1" step="1" id="getCustomDataDocs4" value="100">
 

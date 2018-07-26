@@ -11,10 +11,10 @@ class mySALESGUIDE {
         this.callbacks = [];
         this.window = window;
         this.options = {
-            defaultTimeout: 300000,
-            defaultFilter: function(doc, emit) {
-                if (typeof(doc.deleted_at) !== "undefined" && doc.deleted_at === 0) {
-                    emit(doc);
+            defaultTimeout: 100000,
+            defaultFilter: function(doc) {
+                if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {
+                    return(doc);
                 }
             },
             defaultOrder: [['created_at', mySALESGUIDE.ORDER_ASC]],
@@ -204,7 +204,10 @@ class mySALESGUIDE {
         if (typeof title !== "string") {
             throw Error('Argument 2 passed to openBrowser must type of string.');
         }
-        return this._invoke('openBrowser', {'url': url, 'title': title});
+        return this._invoke('openBrowser', {
+            'url': url,
+            'title': title
+        });
     }
 
     /**
@@ -511,15 +514,15 @@ class mySALESGUIDE {
     }
 
     /**
-     * @param {String} crm_Industry_id
+     * @param {String} crm_industry_id
      * @return {Promise}
      * @throws {Error}
      */
-    getCrmIndustry(crm_Industry_id) {
-        if (typeof crm_Industry_id !== "string") {
+    getCrmIndustry(crm_industry_id) {
+        if (typeof crm_industry_id !== "string") {
             throw Error('Argument 1 passed to getCrmIndustry must type of string.');
         }
-        return this._invoke('getCrmIndustry', {'id': crm_Industry_id});
+        return this._invoke('getCrmIndustry', {'id': crm_industry_id});
     }
 
     /**
