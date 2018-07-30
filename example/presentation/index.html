@@ -4,6 +4,7 @@
     <title>mySALESGUIDE 3 Presentation Example</title>
     <script src="../../dist/mySALESGUIDE.js"></script>
     <script src="./mySALESGUIDE.js"></script>
+    <script src="./inc/example.pdf.js"></script>
 </head>
 <body>
     <code id="request" style="position: fixed; display: block; top: 1vh; right: 1vw; width: 24.5vw; height: 48.5vh;border: 1px solid #000000;"></code>
@@ -55,9 +56,12 @@
     <input id="openBrowser2" type="text" value="Google">
 
     <h2>openPdfViewer</h2>
-    <input type="button" value="openPdfViewer" onclick="window.msg.openPdfViewer(val('openPdfViewer1'),JSON.parse(val('openPdfViewer2')));">
+    <input type="button" value="openPdfViewer via id" onclick="window.msg.openPdfViewer(val('openPdfViewer1'),JSON.parse(val('openPdfViewer2')));">
     <input id="openPdfViewer1" type="text" placeholder="attachment::">
-    <textarea id="openPdfViewer2">{}</textarea>
+    <textarea id="openPdfViewer2">{}</textarea><br>
+
+    <input type="button" value="openPdfViewer via base64" onclick="window.msg.openPdfViewer(window.example.pdf,JSON.parse(val('openPdfViewer3')));">
+    <textarea id="openPdfViewer3">{}</textarea><br>
 
     <h2>getInformation</h2>
     <input type="button" value="getInformation" onclick="window.msg.getInformation();">
@@ -78,7 +82,31 @@
 
     <h2>getAccessToken</h2>
     <input type="button" value="getAccessToken" onclick="window.msg.getAccessToken(JSON.parse(val('getAccessToken1')))">
-    <textarea id="getAccessToken1">["presentation"]</textarea>
+    <textarea id="getAccessToken1">["presentation"]</textarea><br>
+    <h3>Scopes</h3>
+    <ul>
+        <li>presentation</li>
+        <li>acl_permissions</li>
+        <li>devices</li>
+        <li>apilogins</li>
+        <li>crm_settings</li>
+        <li>acl_groups</li>
+        <li>analysis</li>
+        <li>analysis_products</li>
+        <li>analysis_question</li>
+        <li>analysis_tracking</li>
+        <li>attachments</li>
+        <li>crm_contacts</li>
+        <li>crm_companies</li>
+        <li>crm_contact_notes</li>
+        <li>crm_company_notes</li>
+        <li>custom_data</li>
+        <li>links</li>
+        <li>links_groups</li>
+        <li>tags</li>
+        <li>users</li>
+        <li>users_settings</li>
+    </ul>
 
     <h2>getGroups</h2>
     <input type="button" value="getGroups" onclick="window.msg.getGroups(val('getGroups1'),JSON.parse(val('getGroups2')),parseInt(val('getGroups3')),parseInt(val('getGroups4')));">
@@ -158,7 +186,7 @@
 
     <h2>saveAttachment</h2>
     <input type="button" value="saveAttachment" onclick="window.msg.saveAttachment(JSON.parse(val('saveAttachment1')));">
-    <textarea id="saveAttachment1">{}</textarea>
+    <textarea id="saveAttachment1">{"file_url": ""}</textarea>
 
     <h2>selectCrmContact</h2>
     <input type="button" value="selectCrmContact" onclick="window.msg.selectCrmContact(val('selectCrmContact1'));">

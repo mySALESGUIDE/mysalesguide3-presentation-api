@@ -1199,6 +1199,9 @@
                 if ((typeof data === "undefined" ? "undefined" : _typeof(data)) !== "object") {
                     throw Error('Argument 1 passed to saveAttachment must type of object.');
                 }
+                if (typeof data.file_url !== "string") {
+                    throw Error('Argument 1 passed to saveAttachment must type of object with key file_url.');
+                }
                 return this._invoke('saveAttachment', data);
             }
         }, {
