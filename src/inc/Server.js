@@ -13,15 +13,23 @@ class Server {
             callback_success: true,
             callback_arguments: [
                 {
-                    version: '3.0.0-fake',
-                    device: navigator.userAgent,
-                    os: navigator.platform,
-                    short_url: 'msgapp://',
-                    org_short: this.database.clients[Object.keys(this.database.clients)[0]].orgShort,
-                    language: this.database.users[Object.keys(this.database.users)[0]].lang,
-                    connection: 'WLAN',
-                    server_url: '/api/v3',
-                    uuid: 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+                    connectionType: "WLAN",
+                    serverUrl: "http://localhost",
+                    pushStatus: true,
+                    deviceOs: "WINDOWS",
+                    deviceOsVersion: "10",
+                    deviceType: "BROWSER",
+                    uuid: "89ad771b-520a-1e72-7cac-3916e3aa35bf",
+                    deviceBrowser: "CHROME",
+                    appVersion: "3.0.3.0-fake",
+                    country: this.database.users[Object.keys(this.database.users)[0]].lang,
+                    organisationToken: this.database.clients[Object.keys(this.database.clients)[0]].orgShort,
+                    timezone: "Europe/Berlin",
+                    internetConnection: "WLAN",
+                    language: this.database.users[Object.keys(this.database.users)[0]].lang+'-'+this.database.users[Object.keys(this.database.users)[0]].lang,
+                    build: "185",
+                    environment: "PRODUCTION",
+                    short_url: 'msgapp://'
                 }
             ]
         };
