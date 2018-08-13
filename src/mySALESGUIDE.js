@@ -1117,7 +1117,7 @@ class mySALESGUIDE {
         if (!!data.user_id) {
             id += '::' + data.user_id;
         }
-        data.id = id + '::' + data.custom_key;
+        data._id = id + '::' + data.custom_key;
         return this._invoke('saveCustomData', data);
     }
 
