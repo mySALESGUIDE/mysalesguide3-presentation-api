@@ -1104,20 +1104,20 @@ class mySALESGUIDE {
         if (typeof data.client_id !== "string") {
             throw Error('Argument 1 passed to saveCustomData must type of object with client_id.');
         }
-        if (typeof data.custom_type !== "string") {
-            throw Error('Argument 1 passed to saveCustomData must type of object with custom_type.');
+        if (typeof data.customType !== "string") {
+            throw Error('Argument 1 passed to saveCustomData must type of object with customType.');
         }
-        if (typeof data.custom_key !== "string") {
-            throw Error('Argument 1 passed to saveCustomData must type of object with custom_key.');
+        if (typeof data.customKey !== "string") {
+            throw Error('Argument 1 passed to saveCustomData must type of object with customKey.');
         }
-        if (!data.client_id || !data.custom_type || !data.custom_key) {
+        if (!data.client_id || !data.customType || !data.customKey) {
             throw Error('Could not build custom_data key');
         }
-        let id = 'custom_data::' + data.client_id + '::' + data.custom_type;
-        if (!!data.user_id) {
-            id += '::' + data.user_id;
+        let id = 'custom_data::' + data.client_id + '::' + data.customKey;
+        if (!!data.userId) {
+            id += '::' + data.userId;
         }
-        data._id = id + '::' + data.custom_key;
+        data._id = id + '::' + data.customKey;
         return this._invoke('saveCustomData', data);
     }
 
