@@ -275,7 +275,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -323,7 +323,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -358,7 +358,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -393,7 +393,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -428,7 +428,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -463,7 +463,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -498,7 +498,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -533,7 +533,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -568,7 +568,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -622,7 +622,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -676,7 +676,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -737,7 +737,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -791,7 +791,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -845,7 +845,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -899,7 +899,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -970,7 +970,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1024,7 +1024,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1059,7 +1059,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1094,7 +1094,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -1129,7 +1129,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string" && filter.indexOf('function(') !== 0) {
+                if (typeof filter !== "function" && typeof filter !== "string") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {

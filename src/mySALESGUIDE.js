@@ -252,7 +252,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getUsers(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -315,7 +315,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getGroups(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -359,7 +359,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getPermissions(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -403,7 +403,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLanguages(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -447,7 +447,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCountries(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -491,7 +491,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmIndustries(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -535,7 +535,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmPriorities(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -579,7 +579,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmSources(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -623,7 +623,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanies(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -694,7 +694,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanyNotes(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -765,7 +765,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmCompanyFiles(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -844,7 +844,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContacts(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -915,7 +915,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContactNotes(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -986,7 +986,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmContactFiles(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1057,7 +1057,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCustomDataDocs(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1146,7 +1146,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getOwnFiles(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1217,7 +1217,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getFileManagerDocs(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1261,7 +1261,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLinkGroups(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1305,7 +1305,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getLinks(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1349,7 +1349,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getTags(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && (typeof(filter) !== "string" && filter.indexOf('function(') !== 0)) {
+        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
