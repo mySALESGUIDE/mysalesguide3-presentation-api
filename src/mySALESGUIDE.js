@@ -535,7 +535,7 @@ class mySALESGUIDE {
      * @throws {Error}
      */
     getCrmPriorities(filter = null, order = [], page = 0, limit = 0) {
-        if (typeof(filter) !== "function" && typeof(filter) !== "string") {
+        if (typeof(filter) !== "function") {
             filter = this.options.defaultFilter;
         }
         if (!Array.isArray(order)) {
@@ -1114,7 +1114,7 @@ class mySALESGUIDE {
         if (!data.client_id || !data.customType || !data.customKey) {
             throw Error('Could not build custom_data key');
         }
-        let id = 'custom_data::' + data.client_id + '::' + data.customKey;
+        let id = 'custom_data::' + data.client_id + '::' + data.customType;
         if (!!data.userId) {
             id += '::' + data.userId;
         }

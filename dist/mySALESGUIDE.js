@@ -498,7 +498,7 @@
                 var page = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
                 var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
 
-                if (typeof filter !== "function" && typeof filter !== "string") {
+                if (typeof filter !== "function") {
                     filter = this.options.defaultFilter;
                 }
                 if (!Array.isArray(order)) {
@@ -944,7 +944,7 @@
                 if (!data.client_id || !data.customType || !data.customKey) {
                     throw Error('Could not build custom_data key');
                 }
-                var id = 'custom_data::' + data.client_id + '::' + data.customKey;
+                var id = 'custom_data::' + data.client_id + '::' + data.customType;
                 if (!!data.userId) {
                     id += '::' + data.userId;
                 }
