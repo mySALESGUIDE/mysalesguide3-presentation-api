@@ -22,7 +22,7 @@
     var API_METHOD_GET_CUSTOM_DATA = 'getCustomData';
     var API_METHOD_LIST_CUSTOM_DATA = 'listCustomData';
 
-    API.version = '1.1.0';
+    API.version = '1.1.1';
     API.CRM_TYPE_CONTACTS = 'crm_contacts';
     API.CRM_TYPE_COMPANIES = 'crm_company';
 
@@ -130,7 +130,13 @@
             delete callbacks[callback_identifier].timeoutTimer;
             delete callbacks[callback_identifier];
         } else {
-            throw new Error('Failed to call callback, may called multiple times?.');
+            var parts = callback_identifier.split('_');
+            var i = parseInt(parts[parts.length-1]);
+            if(i < callbackCounter) {
+                console.warn('Failed to call callback, called multiple times...');
+            } else {
+                throw new Error('Failed to call callback, no such callback '+JSON.stringify(callback_identifier)+' defined.');
+            }
         }
     }
 
