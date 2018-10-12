@@ -68,7 +68,7 @@
 
     <h2>getUsers</h2>
     <input type="button" value="getUsers" onclick="window.msg.getUsers(val('getUsers1'),JSON.parse(val('getUsers2')),parseInt(val('getUsers3')),parseInt(val('getUsers4')));">
-    <textarea id="getUsers1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getUsers1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
     <textarea id="getUsers2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getUsers3" value="1">
     <input type="number" min="1" step="1" id="getUsers4" value="100">
@@ -110,7 +110,7 @@
 
     <h2>getGroups</h2>
     <input type="button" value="getGroups" onclick="window.msg.getGroups(val('getGroups1'),JSON.parse(val('getGroups2')),parseInt(val('getGroups3')),parseInt(val('getGroups4')));">
-    <textarea id="getGroups1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getGroups1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
     <textarea id="getGroups2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getGroups3" value="1">
     <input type="number" min="1" step="1" id="getGroups4" value="100">
@@ -121,7 +121,7 @@
 
     <h2>getCrmCompanies</h2>
     <input type="button" value="getCrmCompanies" onclick="window.msg.getCrmCompanies(val('getCrmCompanies1'),JSON.parse(val('getCrmCompanies2')),parseInt(val('getCrmCompanies3')),parseInt(val('getCrmCompanies4')));">
-    <textarea id="getCrmCompanies1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getCrmCompanies1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
     <textarea id="getCrmCompanies2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCrmCompanies3" value="1">
     <input type="number" min="1" step="1" id="getCrmCompanies4" value="100">
@@ -140,7 +140,7 @@
     
     <h2>getCrmCompanyFiles</h2>
     <input type="button" value="getCrmCompanyFiles" onclick="window.msg.getCrmCompanyFiles(val('getCrmCompanyFiles1'),JSON.parse(val('getCrmCompanyFiles2')),parseInt(val('getCrmCompanyFiles3')),parseInt(val('getCrmCompanyFiles4')));">
-    <textarea id="getCrmCompanyFiles1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getCrmCompanyFiles1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
     <textarea id="getCrmCompanyFiles2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCrmCompanyFiles3" value="1">
     <input type="number" min="1" step="1" id="getCrmCompanyFiles4" value="100">
@@ -156,10 +156,86 @@
     <h2>deleteCrmCompanyFile</h2>
     <input type="button" value="deleteCrmCompanyFile" onclick="window.msg.deleteCrmCompanyFile(val('deleteCrmCompanyFile1'));">
     <input id="deleteCrmCompanyFile1" type="text" placeholder="crm_company_files::">
-    
+
+    <h2>getCrmCompanyNotes</h2>
+    <input type="button" value="getCrmCompanyNotes" onclick="window.msg.getCrmCompanyNotes(val('getCrmCompanyNotes1'),JSON.parse(val('getCrmCompanyNotes2')),parseInt(val('getCrmCompanyNotes3')),parseInt(val('getCrmCompanyNotes4')));">
+    <textarea id="getCrmCompanyNotes1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
+    <textarea id="getCrmCompanyNotes2">[["datetime_created", "asc"]]</textarea>
+    <input type="number" min="1" step="1" id="getCrmCompanyNotes3" value="1">
+    <input type="number" min="1" step="1" id="getCrmCompanyNotes4" value="100">
+
+    <h2>getCrmCompanyNote</h2>
+    <input type="button" value="getCrmCompanyNote" onclick="window.msg.getCrmCompanyNote(val('getCrmCompanyNote1'));">
+    <input id="getCrmCompanyNote1" type="text" placeholder="crm_company_notes::">
+
+    <h2>saveCrmCompanyNote</h2>
+    <input type="button" value="saveCrmCompanyNote" onclick="window.msg.saveCrmCompanyNote(JSON.parse(val('saveCrmCompanyNote1')));">
+    <textarea id="saveCrmCompanyNote1">{}</textarea>
+
+    <h2>deleteCrmCompanyNote</h2>
+    <input type="button" value="deleteCrmCompanyNote" onclick="window.msg.deleteCrmCompanyNote(val('deleteCrmCompanyNote1'));">
+    <input id="deleteCrmCompanyNote1" type="text" placeholder="crm_company_notes::">
+
+    <h2>getCrmContacts</h2>
+    <input type="button" value="getCrmContacts" onclick="window.msg.getCrmContacts(val('getCrmContacts1'),JSON.parse(val('getCrmContacts2')),parseInt(val('getCrmContacts3')),parseInt(val('getCrmContacts4')));">
+    <textarea id="getCrmContacts1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
+    <textarea id="getCrmContacts2">[["datetime_created", "asc"]]</textarea>
+    <input type="number" min="1" step="1" id="getCrmContacts3" value="1">
+    <input type="number" min="1" step="1" id="getCrmContacts4" value="100">
+
+    <h2>getCrmContact</h2>
+    <input type="button" value="getCrmContact" onclick="window.msg.getCrmContact(val('getCrmContact1'));">
+    <input id="getCrmContact1" type="text" placeholder="crm_contacts::">
+
+    <h2>saveCrmContact</h2>
+    <input type="button" value="saveCrmContact" onclick="window.msg.saveCrmContact(JSON.parse(val('saveCrmContact1')));">
+    <textarea id="saveCrmContact1">{}</textarea>
+
+    <h2>deleteCrmContact</h2>
+    <input type="button" value="deleteCrmContact" onclick="window.msg.deleteCrmContact(val('deleteCrmContact1'));">
+    <input id="deleteCrmContact1" type="text" placeholder="crm_contacts::">
+
+    <h2>getCrmContactFiles</h2>
+    <input type="button" value="getCrmContactFiles" onclick="window.msg.getCrmContactFiles(val('getCrmContactFiles1'),JSON.parse(val('getCrmContactFiles2')),parseInt(val('getCrmContactFiles3')),parseInt(val('getCrmContactFiles4')));">
+    <textarea id="getCrmContactFiles1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
+    <textarea id="getCrmContactFiles2">[["datetime_created", "asc"]]</textarea>
+    <input type="number" min="1" step="1" id="getCrmContactFiles3" value="1">
+    <input type="number" min="1" step="1" id="getCrmContactFiles4" value="100">
+
+    <h2>getCrmContactFile</h2>
+    <input type="button" value="getCrmContactFile" onclick="window.msg.getCrmContactFile(val('getCrmContactFile1'));">
+    <input id="getCrmContactFile1" type="text" placeholder="crm_contact_files::">
+
+    <h2>saveCrmContactFile</h2>
+    <input type="button" value="saveCrmContactFile" onclick="window.msg.saveCrmContactFile(JSON.parse(val('saveCrmContactFile1')));">
+    <textarea id="saveCrmContactFile1">{}</textarea>
+
+    <h2>deleteCrmContactFile</h2>
+    <input type="button" value="deleteCrmContactFile" onclick="window.msg.deleteCrmContactFile(val('deleteCrmContactFile1'));">
+    <input id="deleteCrmContactFile1" type="text" placeholder="crm_contact_files::">
+
+    <h2>getCrmContactNotes</h2>
+    <input type="button" value="getCrmContactNotes" onclick="window.msg.getCrmContactNotes(val('getCrmContactNotes1'),JSON.parse(val('getCrmContactNotes2')),parseInt(val('getCrmContactNotes3')),parseInt(val('getCrmContactNotes4')));">
+    <textarea id="getCrmContactNotes1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
+    <textarea id="getCrmContactNotes2">[["datetime_created", "asc"]]</textarea>
+    <input type="number" min="1" step="1" id="getCrmContactNotes3" value="1">
+    <input type="number" min="1" step="1" id="getCrmContactNotes4" value="100">
+
+    <h2>getCrmContactNote</h2>
+    <input type="button" value="getCrmContactNote" onclick="window.msg.getCrmContactNote(val('getCrmContactNote1'));">
+    <input id="getCrmContactNote1" type="text" placeholder="crm_contact_notes::">
+
+    <h2>saveCrmContactNote</h2>
+    <input type="button" value="saveCrmContactNote" onclick="window.msg.saveCrmContactNote(JSON.parse(val('saveCrmContactNote1')));">
+    <textarea id="saveCrmContactNote1">{}</textarea>
+
+    <h2>deleteCrmContactNote</h2>
+    <input type="button" value="deleteCrmContactNote" onclick="window.msg.deleteCrmContactNote(val('deleteCrmContactNote1'));">
+    <input id="deleteCrmContactNote1" type="text" placeholder="crm_contact_notes::">
+
     <h2>getCustomDataDocs</h2>
     <input type="button" value="getCustomDataDocs" onclick="window.msg.getCustomDataDocs(val('getCustomDataDocs1'),JSON.parse(val('getCustomDataDocs2')),parseInt(val('getCustomDataDocs3')),parseInt(val('getCustomDataDocs4')));">
-    <textarea id="getCustomDataDocs1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {return(doc);}}</textarea>
+    <textarea id="getCustomDataDocs1">function(doc) {if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {return(doc);}}</textarea>
     <textarea id="getCustomDataDocs2">[["datetime_created", "asc"]]</textarea>
     <input type="number" min="1" step="1" id="getCustomDataDocs3" value="1">
     <input type="number" min="1" step="1" id="getCustomDataDocs4" value="100">

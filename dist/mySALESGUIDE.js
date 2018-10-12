@@ -66,7 +66,7 @@
             this.options = {
                 defaultTimeout: 100000,
                 defaultFilter: function defaultFilter(doc) {
-                    if (typeof doc.datetime_deleted !== "undefined" && doc.datetime_deleted === 0) {
+                    if (typeof doc.datetime_deleted !== "undefined" && doc.datetime_deleted === null) {
                         return doc;
                     }
                 },
@@ -148,9 +148,28 @@
                 var timeout = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
                 return new Promise(function (resolve, reject) {
+                    var buildPaging = function buildPaging(items) {
+                        resolve(items);
+                    };
+                    console.log('CHECK', method, /^get.*s$/.test(method));
+                    if (/^get.*s$/.test(method)) {
+                        buildPaging = function buildPaging(items) {
+                            var count = (typeof items === "undefined" ? "undefined" : _typeof(items)) === "object" ? Object.keys(items).length : items.length;
+                            var pages = parseInt(count / parameters.limit);
+                            var paging = {
+                                'items': count,
+                                'start': 1,
+                                'current': Math.min(Math.max(1, parameters.page), pages),
+                                'end': Math.max(1, pages),
+                                'limit': parameters.limit
+                            };
+                            resolve(items, paging);
+                        };
+                    }
+
                     var callbackId = _this2.uuid();
                     _this2.callbacks[callbackId] = {
-                        'success': resolve,
+                        'success': buildPaging,
                         'error': reject,
                         'timeout': setTimeout(function () {
                             this._cancel(callbackId, 'Timeout.', mySALESGUIDE.ERROR_API_TIMEOUT);

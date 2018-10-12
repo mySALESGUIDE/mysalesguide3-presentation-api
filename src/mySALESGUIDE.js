@@ -13,7 +13,7 @@ class mySALESGUIDE {
         this.options = {
             defaultTimeout: 100000,
             defaultFilter: function(doc) {
-                if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === 0) {
+                if (typeof(doc.datetime_deleted) !== "undefined" && doc.datetime_deleted === null) {
                     return(doc);
                 }
             },
@@ -94,9 +94,26 @@ class mySALESGUIDE {
      */
     _invoke(method, parameters = {}, timeout = 0) {
         return new Promise((resolve, reject) => {
+            let buildPaging = (items) => { resolve(items); };
+            console.log('CHECK', method, /^get.*s$/.test(method));
+            if (/^get.*s$/.test(method)) {
+                buildPaging = (items) => {
+                    let count = typeof(items) === "object" ? Object.keys(items).length : items.length;
+                    let pages = parseInt(count / parameters.limit);
+                    let paging = {
+                        'items': count,
+                        'start': 1,
+                        'current': Math.min(Math.max(1, parameters.page), pages),
+                        'end': Math.max(1, pages),
+                        'limit': parameters.limit
+                    };
+                    resolve(items, paging);
+                };
+            }
+
             let callbackId = this.uuid();
             this.callbacks[callbackId] = {
-                'success': resolve,
+                'success': buildPaging,
                 'error': reject,
                 'timeout': setTimeout(function () {
                     this._cancel(callbackId, 'Timeout.', mySALESGUIDE.ERROR_API_TIMEOUT);
