@@ -27,6 +27,7 @@
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1"
   },
   "scripts": {
+    "dev": "gulp dev",
     "prod": "gulp prod",
     "watch": "gulp watch"
   }
